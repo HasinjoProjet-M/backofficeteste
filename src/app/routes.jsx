@@ -10,13 +10,12 @@ import materialRoutes from 'app/views/material-kit/MaterialRoutes';
 const NotFound = Loadable(lazy(() => import('app/views/sessions/NotFound')));
 const JwtLogin = Loadable(lazy(() => import('app/views/sessions/JwtLogin')));
 const JwtRegister = Loadable(lazy(() => import('app/views/sessions/JwtRegister')));
-const ForgotPassword = Loadable(lazy(() => import('app/views/sessions/ForgotPassword')));
 
-// echart page
-const AppEchart = Loadable(lazy(() => import('app/views/charts/echarts/AppEchart')));
+// annonce page
+const Annonces = Loadable(lazy(() => import('app/views/annonce/list/AppTable')));
 
-// dashboard page
-const Analytics = Loadable(lazy(() => import('app/views/dashboard/Analytics')));
+// stat page
+const Accueil = Loadable(lazy(() => import('app/views/acceuil/AppTableauBord')));
 
 const routes = [
   {
@@ -27,18 +26,19 @@ const routes = [
     ),
     children: [
       ...materialRoutes,
-      // dashboard route
+
+      // statistique route
       {
-        path: '/dashboard/default',
-        element: <Analytics />,
+        path: '/accueil',
+        element: <Accueil />,
         auth: authRoles.admin
       },
 
-      // e-chart rooute
+      // annonce route
       {
-        path: '/charts/echarts',
-        element: <AppEchart />,
-        auth: authRoles.editor
+        path: '/public/annonces',
+        element: <Annonces />,
+        auth: authRoles.admin
       }
     ]
   },
@@ -47,9 +47,8 @@ const routes = [
   { path: '/session/404', element: <NotFound /> },
   { path: '/session/signin', element: <JwtLogin /> },
   { path: '/session/signup', element: <JwtRegister /> },
-  { path: '/session/forgot-password', element: <ForgotPassword /> },
 
-  { path: '/', element: <Navigate to="dashboard/default" /> },
+  { path: '/', element: <Navigate to="/accueil" /> },
   { path: '*', element: <NotFound /> }
 ];
 

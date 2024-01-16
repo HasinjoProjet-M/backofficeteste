@@ -9,8 +9,8 @@ const Container = styled('div')(({ theme }) => ({
   [theme.breakpoints.down('sm')]: { margin: '16px' },
   '& .breadcrumb': {
     marginBottom: '30px',
-    [theme.breakpoints.down('sm')]: { marginBottom: '16px' },
-  },
+    [theme.breakpoints.down('sm')]: { marginBottom: '16px' }
+  }
 }));
 
 const AppAutoComplete = () => {
@@ -18,7 +18,7 @@ const AppAutoComplete = () => {
     <Container>
       <Box className="breadcrumb">
         <Breadcrumb
-          routeSegments={[{ name: 'Material', path: '/material' }, { name: 'Autocomplete' }]}
+          routeSegments={[{ name: 'Material', path: '/material' }, { name: 'Autocompletebebhjfk' }]}
         />
       </Box>
 
@@ -26,7 +26,7 @@ const AppAutoComplete = () => {
         <AutocompleteCombo />
       </SimpleCard>
 
-      <Box py="12px" />
+      <Box py="1px" />
 
       <SimpleCard title="Asyncronous Autocomplete">
         <AsyncAutocomplete />

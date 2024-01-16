@@ -34,15 +34,15 @@ const JWTRoot = styled(JustifyBox)(() => ({
 
 // inital login credentials
 const initialValues = {
-  email: 'jason@ui-lib.com',
-  password: 'dummyPass',
+  email: 'admin@example.com',
+  password: 'root',
   remember: true
 };
 
 // form field validation schema
 const validationSchema = Yup.object().shape({
   password: Yup.string()
-    .min(6, 'Password must be 6 character length')
+    .min(1, 'Password must be 6 character length')
     .required('Password is required!'),
   email: Yup.string().email('Invalid Email address').required('Email is required!')
 });
@@ -52,18 +52,31 @@ const JwtLogin = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  const { login } = useAuth();
-
   const handleFormSubmit = async (values) => {
     setLoading(true);
+    const data = new FormData();
+    data.append('email', values.email);
+    data.append('mdp', values.password);
     try {
-      await login(values.email, values.password);
-      navigate('/');
+      const response = await fetch('http://localhost:8080/api/auth/v1/login', {
+        method: 'POST',
+        body: data
+      });
+      const responseData = await response.json();
+      if (response.ok) {
+        console.log(responseData);
+        localStorage.setItem('token', responseData.data);
+        window.location.href = '/';
+      } else {
+        setLoading(false);
+        alert(responseData.message);
+      }
     } catch (e) {
       setLoading(false);
+      alert(e);
+      throw e;
     }
   };
-
   return (
     <JWTRoot>
       <Card className="card">
@@ -113,27 +126,6 @@ const JwtLogin = () => {
                       sx={{ mb: 1.5 }}
                     />
 
-                    <FlexBox justifyContent="space-between">
-                      <FlexBox gap={1}>
-                        <Checkbox
-                          size="small"
-                          name="remember"
-                          onChange={handleChange}
-                          checked={values.remember}
-                          sx={{ padding: 0 }}
-                        />
-
-                        <Paragraph>Remember Me</Paragraph>
-                      </FlexBox>
-
-                      <NavLink
-                        to="/session/forgot-password"
-                        style={{ color: theme.palette.primary.main }}
-                      >
-                        Forgot password?
-                      </NavLink>
-                    </FlexBox>
-
                     <LoadingButton
                       type="submit"
                       color="primary"
@@ -143,16 +135,6 @@ const JwtLogin = () => {
                     >
                       Login
                     </LoadingButton>
-
-                    <Paragraph>
-                      Don't have an account?
-                      <NavLink
-                        to="/session/signup"
-                        style={{ color: theme.palette.primary.main, marginLeft: 5 }}
-                      >
-                        Register
-                      </NavLink>
-                    </Paragraph>
                   </form>
                 )}
               </Formik>

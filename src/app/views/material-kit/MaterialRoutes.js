@@ -1,36 +1,23 @@
 import { lazy } from 'react';
 import Loadable from 'app/components/Loadable';
 
-const AppTable = Loadable(lazy(() => import('./tables/AppTable')));
-const AppForm = Loadable(lazy(() => import('./forms/AppForm')));
-const AppButton = Loadable(lazy(() => import('./buttons/AppButton')));
-const AppIcon = Loadable(lazy(() => import('./icons/AppIcon')));
-const AppProgress = Loadable(lazy(() => import('./AppProgress')));
-const AppMenu = Loadable(lazy(() => import('./menu/AppMenu')));
-const AppCheckbox = Loadable(lazy(() => import('./checkbox/AppCheckbox')));
-const AppSwitch = Loadable(lazy(() => import('./switch/AppSwitch')));
-const AppRadio = Loadable(lazy(() => import('./radio/AppRadio')));
-const AppSlider = Loadable(lazy(() => import('./slider/AppSlider')));
-const AppDialog = Loadable(lazy(() => import('./dialog/AppDialog')));
-const AppSnackbar = Loadable(lazy(() => import('./snackbar/AppSnackbar')));
-const AppAutoComplete = Loadable(lazy(() => import('./auto-complete/AppAutoComplete')));
-const AppExpansionPanel = Loadable(lazy(() => import('./expansion-panel/AppExpansionPanel')));
+/**** Categorie ***/
+const AppCategories = Loadable(lazy(() => import('app/views/categories/AppCategories')));
+/**** Marques ***/
+const AppMarques = Loadable(lazy(() => import('app/views/marques/AppMarques')));
+/*** Model ****/
+const AppModels = Loadable(lazy(() => import('app/views/models/AppModels')));
+/*** Liste Model / Marque ****/
+const AppListeModels = Loadable(lazy(() => import('app/views/marques/listeModels/AppListeModels')));
+/*** Detail annonce  ***/
+const AppDetailAnnonce = Loadable(lazy(() => import('../annonce/detail/AppDetailAnnonce')));
 
 const materialRoutes = [
-  { path: '/material/table', element: <AppTable /> },
-  { path: '/material/form', element: <AppForm /> },
-  { path: '/material/buttons', element: <AppButton /> },
-  { path: '/material/icons', element: <AppIcon /> },
-  { path: '/material/progress', element: <AppProgress /> },
-  { path: '/material/menu', element: <AppMenu /> },
-  { path: '/material/checkbox', element: <AppCheckbox /> },
-  { path: '/material/switch', element: <AppSwitch /> },
-  { path: '/material/radio', element: <AppRadio /> },
-  { path: '/material/slider', element: <AppSlider /> },
-  { path: '/material/autocomplete', element: <AppAutoComplete /> },
-  { path: '/material/expansion-panel', element: <AppExpansionPanel /> },
-  { path: '/material/dialog', element: <AppDialog /> },
-  { path: '/material/snackbar', element: <AppSnackbar /> }
+  { path: '/categories', element: <AppCategories /> },
+  { path: '/marques', element: <AppMarques /> },
+  { path: '/models', element: <AppModels /> },
+  { path: '/listesmodels', element: <AppListeModels /> },
+  { path: '/annonces/detail', element: <AppDetailAnnonce /> }
 ];
 
 export default materialRoutes;
