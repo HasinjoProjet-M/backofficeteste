@@ -1,22 +1,11 @@
-import { DatePicker } from '@mui/lab';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import Box from '@mui/material/Box';
-import {
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Grid,
-  Icon,
-  Autocomplete,
-  styled
-} from '@mui/material';
+import { Button, Grid, Icon, styled } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import { Span } from 'app/components/Typography';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 
 const TextField = styled(TextValidator)(() => ({
@@ -73,6 +62,8 @@ const FormModel = () => {
     setState({ ...state, [event.target.name]: event.target.value });
   };
   const handleMarqueChange = (event) => {
+    setTabMarques(tableData);
+    setTabCategories(tableDataCategorie);
     setMarque_id(event.target.value);
   };
   const handleCategorieChange = (event) => {

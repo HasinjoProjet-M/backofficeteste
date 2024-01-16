@@ -1,23 +1,12 @@
-import { DatePicker } from '@mui/lab';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import Box from '@mui/material/Box';
-import {
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Grid,
-  Icon,
-  Autocomplete,
-  styled
-} from '@mui/material';
+import { Button, Grid, Icon } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import { Span } from 'app/components/Typography';
-import { useEffect, useState } from 'react';
-import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
+import { useState } from 'react';
+import { ValidatorForm } from 'react-material-ui-form-validator';
 import Tableliste from './Tableliste';
 
 const tableData = [
@@ -58,11 +47,6 @@ const tableDataCategorie = [
   }
 ];
 
-const TextField = styled(TextValidator)(() => ({
-  width: '100%',
-  marginBottom: '16px'
-}));
-
 const FormListModels = () => {
   const [marque_id, setMarque_id] = useState('');
   const [tabMarques, setTabMarques] = useState(tableData);
@@ -71,6 +55,9 @@ const FormListModels = () => {
   const [resultat, setResultat] = useState([]);
 
   const handleMarqueChange = (event) => {
+    setTabMarques(tableData);
+    setTabCategories(tableDataCategorie);
+    setResultat([]);
     setMarque_id(event.target.value);
   };
   const handleCategorieChange = (event) => {

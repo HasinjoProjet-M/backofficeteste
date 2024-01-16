@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React from 'react';
 import { Box, styled } from '@mui/material';
 import { Breadcrumb, SimpleCard } from 'app/components';
 import FormModel from './FormModel';
@@ -13,12 +13,6 @@ const Container = styled('div')(({ theme }) => ({
 }));
 
 const AppModels = () => {
-  const [state, setState] = useState({ date: new Date() });
-  const { marque_id, categorie_id, model } = state;
-
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.value });
-  };
   return (
     <Container>
       <Box className="breadcrumb">

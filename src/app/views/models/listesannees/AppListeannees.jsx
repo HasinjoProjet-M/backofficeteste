@@ -19,8 +19,9 @@ const AppListeannees = ({ model, modelId, onClose }) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const handleClickOpen = () => setOpen(true);
   const handleClose = () => {
+    setAffmodel(model);
+    setAffmodelId(modelId);
     setOpen(false);
     onClose(); // Appeler la fonction de fermeture du composant parent
   };

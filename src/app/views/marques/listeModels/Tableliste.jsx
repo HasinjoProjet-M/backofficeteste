@@ -49,6 +49,7 @@ const Tableliste = (props) => {
   const [rowsPerPage, setRowsPerPage] = useState(4);
   const handleChangePage = (_, newPage) => {
     setPage(newPage);
+    setResultat(tableData);
   };
 
   const handleChangeRowsPerPage = (event) => {

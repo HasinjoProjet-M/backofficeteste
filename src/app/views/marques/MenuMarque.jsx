@@ -23,7 +23,7 @@ const MenuMarque = ({ id_marque, onEditClick }) => {
     if (option === 'Modifier') {
       console.log('modifier');
       onEditClick();
-      //navigate(``);
+      navigate('/');
     } else if (option === 'Liste Model') {
       navigate('/listesmodels');
     }

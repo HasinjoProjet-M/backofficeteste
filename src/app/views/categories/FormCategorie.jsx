@@ -1,6 +1,6 @@
 import { Button, Grid, Icon, styled } from '@mui/material';
 import { Span } from 'app/components/Typography';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 
 const TextField = styled(TextValidator)(() => ({

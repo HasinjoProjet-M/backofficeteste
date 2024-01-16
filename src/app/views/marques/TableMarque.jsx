@@ -50,6 +50,7 @@ const TableMarque = ({ onEditMarque, selectedMarque, selectedMarqueId }) => {
   const [data, setData] = useState(tableData);
 
   const handleChangePage = (_, newPage) => {
+    setData(tableData);
     setPage(newPage);
   };
 

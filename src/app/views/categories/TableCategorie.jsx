@@ -42,6 +42,7 @@ const TableCategorie = ({ onEditCategory, selectedCategory, selectedCategoryId }
   const [data, setData] = useState(tableData);
 
   const handleChangePage = (_, newPage) => {
+    setData(tableData);
     setPage(newPage);
   };
 

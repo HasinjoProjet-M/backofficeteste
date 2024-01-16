@@ -1,6 +1,5 @@
 import { Box, Icon, IconButton, Menu, MenuItem } from '@mui/material';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import AppListeannees from '../../models/listesannees/AppListeannees';
 const options = ['Ajoute année', 'Liste annee'];
 const ITEM_HEIGHT = 20;
@@ -12,11 +11,12 @@ const MenuListModel = ({ id_model, model }) => {
   const [appListeanneesOpen, setAppListeanneesOpen] = useState(false);
 
   const open = Boolean(anchorEl);
-  const navigate = useNavigate();
 
   console.log(`id_model reçu  : ${id_model}`);
 
   function handleClick(event) {
+    setAffmodel(model);
+    setAffModelId(id_model);
     setAnchorEl(event.currentTarget);
   }
 
