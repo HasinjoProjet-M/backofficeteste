@@ -1,4 +1,5 @@
 import { lazy } from 'react';
+import { Navigate } from 'react-router-dom';
 import AuthGuard from './auth/AuthGuard';
 import { authRoles } from './auth/authRoles';
 import Loadable from './components/Loadable';
@@ -30,19 +31,19 @@ const routes = [
 
       // statistique route
       {
-        path: 'https://main--stirring-chebakia-f56620.netlify.app/accueil',
+        path: 'accueil',
         element: <Accueil />,
         auth: authRoles.admin
       },
 
       // annonce route
       {
-        path: 'https://main--stirring-chebakia-f56620.netlify.app/public/annonces',
+        path: '/public/annonces',
         element: <Annonces />,
         auth: authRoles.admin
       },
       {
-        path: 'https://main--stirring-chebakia-f56620.netlify.app/utilisateur',
+        path: '/utilisateur',
         element: <Users />,
         auth: authRoles.admin
       }
@@ -50,21 +51,12 @@ const routes = [
   },
 
   // session pages route
-  { path: 'https://main--stirring-chebakia-f56620.netlify.app/session/404', element: <NotFound /> },
-  {
-    path: 'https://main--stirring-chebakia-f56620.netlify.app/session/signin',
-    element: <JwtLogin />
-  },
-  {
-    path: 'https://main--stirring-chebakia-f56620.netlify.app/session/signup',
-    element: <JwtRegister />
-  },
+  { path: '/session/404', element: <NotFound /> },
+  { path: 'session/signin', element: <JwtLogin /> },
+  { path: 'session/signup', element: <JwtRegister /> },
 
-  {
-    path: 'https://main--stirring-chebakia-f56620.netlify.app/',
-    element: <Accueil />
-  },
-  { path: '', element: <NotFound /> }
+  { path: '/', element: <Navigate to="session/signin" /> },
+  { path: '*', element: <NotFound /> }
 ];
 
 export default routes;
