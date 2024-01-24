@@ -1,5 +1,4 @@
 import { lazy } from 'react';
-import { Navigate } from 'react-router-dom';
 import AuthGuard from './auth/AuthGuard';
 import { authRoles } from './auth/authRoles';
 import Loadable from './components/Loadable';
@@ -63,9 +62,9 @@ const routes = [
 
   {
     path: 'https://main--stirring-chebakia-f56620.netlify.app/',
-    element: <Navigate to="https://main--stirring-chebakia-f56620.netlify.app/accueil" />
+    element: <Accueil />
   },
-  { path: '*', element: <NotFound /> }
+  { path: '', element: <NotFound /> }
 ];
 
 export default routes;
