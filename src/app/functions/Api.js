@@ -17,6 +17,7 @@ class Api {
       });
 
       const content = await response.json();
+      alert(content);
       if (content.status_code === '401') {
         const logoutResult = await logoutUser();
         if (logoutResult.success) {
