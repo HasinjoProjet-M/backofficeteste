@@ -8,7 +8,7 @@ import ListVente from './shared/ListVente';
 import { SimpleCard } from 'app/components';
 
 import { useState, useEffect } from 'react';
-import Api from 'app/functions/Api';
+//import Api from 'app/functions/Api';
 
 const ContentBox = styled('div')(({ theme }) => ({
   margin: '30px',
