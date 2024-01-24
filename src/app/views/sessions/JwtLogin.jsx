@@ -69,7 +69,7 @@ const JwtLogin = () => {
       if (response.ok) {
         console.log(responseData);
         localStorage.setItem('token', responseData.data);
-        window.location.href = 'https://main--stirring-chebakia-f56620.netlify.app/accueil';
+        window.location.href = 'accueil';
       } else {
         setLoading(false);
         alert(responseData.message);
