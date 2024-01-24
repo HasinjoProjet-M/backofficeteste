@@ -5,8 +5,6 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 
-import { convertHexToRGB } from 'app/utils/utils';
-
 import { Icon, Table, TableBody, TableCell, TableRow } from '@mui/material';
 
 const StyledTable = styled(Table)(({ theme }) => ({
@@ -19,44 +17,6 @@ const StyledTable = styled(Table)(({ theme }) => ({
   }
 }));
 
-const voiture = [
-  {
-    title: 'Matricule',
-    value: '1234TBE'
-  },
-  {
-    title: 'Kilomatrage',
-    value: '56,000.00 km'
-  },
-  {
-    title: 'Marque',
-    value: 'Toyota'
-  },
-  {
-    title: 'Categorie',
-    value: 'Sedan'
-  },
-  {
-    title: 'Serie',
-    value: '2020'
-  },
-  {
-    title: 'Carburant',
-    value: 'Essence'
-  }
-];
-
-const proprietes = [
-  {
-    title: 'Pneu',
-    value: 'Michelin x18'
-  },
-  {
-    title: 'Place',
-    value: 'Cuire Blinx x6'
-  }
-];
-
 const AccordionRoot = styled('div')(({ theme }) => ({
   width: '100%',
   '& .heading': {
@@ -68,13 +28,14 @@ const AccordionRoot = styled('div')(({ theme }) => ({
 const StyledCard = styled(Card)(({ theme }) => ({
   boxShadow: 'none',
   textAlign: 'center',
-  position: 'relative',
-  padding: '24px !important',
-  background: `rgb(${convertHexToRGB(theme.palette.primary.main)}, 0.15) !important`,
-  [theme.breakpoints.down('sm')]: { padding: '16px !important' }
+  position: 'relative'
+  // background: `rgb(${convertHexToRGB(theme.palette.primary.main)}, 0.15) !important`,
+  // [theme.breakpoints.down('sm')]: { padding: '16px !important' },
 }));
 
-export default function DetailSupp() {
+const DetailSupp = (props) => {
+  const { annonce } = props;
+
   return (
     <AccordionRoot>
       <Accordion>
@@ -94,14 +55,42 @@ export default function DetailSupp() {
         <AccordionDetails>
           <StyledTable>
             <TableBody>
-              {voiture.map((subscriber, index) => (
-                <TableRow key={index}>
-                  <TableCell align="left" className="text-bold secondary">
-                    {subscriber.title}
-                  </TableCell>
-                  <TableCell align="right">{subscriber.value}</TableCell>
-                </TableRow>
-              ))}
+              <TableRow key={0}>
+                <TableCell align="left" className="text-bold secondary">
+                  Marque
+                </TableCell>
+                <TableCell align="right">{annonce.detailvoiture?.marque}</TableCell>
+              </TableRow>
+              <TableRow key={1}>
+                <TableCell align="left" className="text-bold secondary">
+                  Matricule
+                </TableCell>
+                <TableCell align="right">{annonce.detailvoiture?.matricule}</TableCell>
+              </TableRow>
+              <TableRow key={2}>
+                <TableCell align="left" className="text-bold secondary">
+                  Kilometrage
+                </TableCell>
+                <TableCell align="right">{annonce.detailvoiture?.kilometrage}</TableCell>
+              </TableRow>
+              <TableRow key={3}>
+                <TableCell align="left" className="text-bold secondary">
+                  Categorie
+                </TableCell>
+                <TableCell align="right">{annonce.detailvoiture?.categorie}</TableCell>
+              </TableRow>
+              <TableRow key={4}>
+                <TableCell align="left" className="text-bold secondary">
+                  Serie
+                </TableCell>
+                <TableCell align="right">{annonce.detailvoiture?.annee}</TableCell>
+              </TableRow>
+              <TableRow key={5}>
+                <TableCell align="left" className="text-bold secondary">
+                  Carburant
+                </TableCell>
+                <TableCell align="right">{annonce.detailvoiture?.carburant}</TableCell>
+              </TableRow>
             </TableBody>
           </StyledTable>
         </AccordionDetails>
@@ -124,12 +113,12 @@ export default function DetailSupp() {
         <AccordionDetails>
           <StyledTable>
             <TableBody>
-              {proprietes.map((subscriber, index) => (
+              {annonce.proprietes?.map((propriete, index) => (
                 <TableRow key={index}>
                   <TableCell align="left" className="text-bold secondary">
-                    {subscriber.title}
+                    {propriete.titre}
                   </TableCell>
-                  <TableCell align="right">{subscriber.value}</TableCell>
+                  <TableCell align="right">{propriete.description}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -153,9 +142,22 @@ export default function DetailSupp() {
 
         <AccordionDetails>
           <Grid container spacing={3} style={{ paddingLeft: '2%', marginTop: '2px' }}>
-            {voiture.map((subscriber, index) => (
-              <StyledCard col={3} md={3} style={{ marginLeft: '1%' }}>
-                <img src="/assets/images/illustrations/upgrade.svg" alt="upgrade" />
+            {annonce.photos?.map((photo, index) => (
+              <StyledCard
+                key={index}
+                col={3}
+                md={3}
+                style={{ marginLeft: '2%', width: '150px', height: '100px' }}
+              >
+                <img
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  src="/assets/images/sq-8.jpg"
+                  alt="upgrade"
+                />
+                {/* <img
+                    src={`data:${annonce.photos[0].contentType};base64,${annonce.photos[0].data}`} 
+                    alt={`Annonce ${index + 1}`}
+                  /> */}
               </StyledCard>
             ))}
           </Grid>
@@ -163,4 +165,6 @@ export default function DetailSupp() {
       </Accordion>
     </AccordionRoot>
   );
-}
+};
+
+export default DetailSupp;

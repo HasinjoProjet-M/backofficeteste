@@ -9,6 +9,8 @@ import {
 
 import ReactEcharts from 'echarts-for-react';
 
+import * as Util from 'app/functions/Util';
+
 const CardHeader = styled(Box)(() => ({
   display: 'flex',
   paddingLeft: '24px',
@@ -24,8 +26,13 @@ const Title = styled('span')(() => ({
   textTransform: 'capitalize',
 }));
 
+const SubTitle = styled('span')(({ theme }) => ({
+  fontSize: '0.875rem',
+  color: theme.palette.text.secondary,
+}));
 
-const StatVente = ({ height, color = [] }) => {
+
+const StatVente = ({ height, color = [], site }) => {
   const theme = useTheme();
 
   const option = {
@@ -65,39 +72,24 @@ const StatVente = ({ height, color = [] }) => {
       axisLabel: { color: theme.palette.text.secondary, fontSize: 13, fontFamily: 'roboto' }
     },
     series: [
-      {
-        data: [30, 40, 20, 50, 40, 50, 60, 42, 45, 34, 45, 89],
-        type: 'line',
-        stack: '2024',
-        name: '2024',
-        smooth: true,
-        symbolSize: 4,
-        lineStyle: { width: 4 }
-      }, 
-      {
-        data: [20, 30, 50, 30, 10, 30, 40, 52, 45, 44, 55, 69],
-        type: 'line',
-        stack: '2023',
-        name: '2023',
-        smooth: true,
-        symbolSize: 4,
-        lineStyle: { width: 4 }
-      }
+      Util.getStatVenteDataOfYear(site?.statVente, 2023),
+      Util.getStatVenteDataOfYear(site?.statVente, 2024),
     ]
   };
 
   return (
     <Card elevation={3} sx={{ pt: '20px', mb: 3 }}>
       <CardHeader>
-        <Title>Vente mensuel</Title>
+        <Title>Commission mensuel</Title>
+        <SubTitle>(en Ariary)</SubTitle>
         <Select size="small" defaultValue="this_month">
           <MenuItem value="this_month">2024</MenuItem>
           <MenuItem value="last_month">2023</MenuItem>
         </Select>
       </CardHeader>
 
-      <Box overflow="auto">
-        <ReactEcharts style={{ height: height }} option={{ ...option, color: [...color] }} />
+      <Box overflow="auto" sx={{ pl: '20px' }}>
+        <ReactEcharts style={{ height: height, width: '100%' }} option={{ ...option, color: [...color] }} />
       </Box>
     </Card>
   );

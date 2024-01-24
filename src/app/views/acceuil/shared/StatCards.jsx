@@ -1,6 +1,8 @@
 import { Box, Card, Grid, Icon, IconButton, styled, Tooltip } from '@mui/material';
 import { Small } from 'app/components/Typography';
 
+import * as Util from 'app/functions/Util';
+
 const StyledCard = styled(Card)(({ theme }) => ({
   display: 'flex',
   flexWrap: 'wrap',
@@ -27,16 +29,25 @@ const Heading = styled('h6')(({ theme }) => ({
   color: theme.palette.primary.main,
 }));
 
-const StatCards = () => {
+const StatCards = (props) => {
+  const { site } = props;
+  // const cardList = [
+  //   { name: 'Total Membres', amount: 3050, icon: 'group' },
+  //   { name: 'Total Commissions', amount: 'Ar 1,800,500', icon: 'payment' },
+  //   { name: 'Total Annonces', amount: '112', icon: 'public' },
+  //   { name: 'Total Ventes', amount: '30', icon: 'shopping_cart' },
+  // ];
+
   const cardList = [
-    { name: 'Total Membres', amount: 3050, icon: 'group' },
-    { name: 'Total Commissions', amount: 'Ar 1,800,500', icon: 'payment' },
-    { name: 'Total Annonces', amount: '112', icon: 'public' },
-    { name: 'Total Ventes', amount: '30', icon: 'shopping_cart' },
+    { name: 'Total Membres', amount: Util.formatNumber2(site.statEffectif?.total_utilisateur), icon: 'group' },
+    { name: 'Total Commissions', amount: Util.formatNumber(site.statEffectif?.total_commission), icon: 'payment' },
+    { name: 'Total Annonces', amount: Util.formatNumber2(site.statEffectif?.total_annonce), icon: 'public' },
+    { name: 'Total Ventes', amount: Util.formatNumber2(site.statEffectif?.total_vente), icon: 'shopping_cart' },
   ];
 
   return (
     <Grid container spacing={3} sx={{ mb: '24px' }}>
+      {/* #{site.statEffectif?.total_utilisateur} */}
       {cardList.map((item, index) => (
         <Grid item xs={12} md={6} key={index}>
           <StyledCard elevation={6}>

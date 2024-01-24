@@ -15,6 +15,12 @@ export const navigations = [
       { name: 'Liste model / marque', iconText: 'FP', path: '/listesmodels' }
     ]
   },
+  {
+    name: 'Utilisateurs',
+    icon: 'people',
+    path: '/utilisateur'
+  },
+  { name: 'Carburant', path: '/carburants', icon: 'dashboard' },
 
   {
     name: 'Public',

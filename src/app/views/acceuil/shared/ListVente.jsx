@@ -10,6 +10,8 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 
+import * as Util from 'app/functions/Util';
+
 const StyledTable = styled(Table)(() => ({
   whiteSpace: "pre",
   "& thead": {
@@ -20,73 +22,9 @@ const StyledTable = styled(Table)(() => ({
   },
 }));
 
-const subscribarList = [
-  {
-    name: "john doe",
-    date: "18 january, 2019",
-    amount: 1000,
-    status: "close",
-    company: "ABC Fintech LTD.",
-  },
-  {
-    name: "kessy bryan",
-    date: "10 january, 2019",
-    amount: 9000,
-    status: "open",
-    company: "My Fintech LTD.",
-  },
-  {
-    name: "kessy bryan",
-    date: "10 january, 2019",
-    amount: 9000,
-    status: "open",
-    company: "My Fintech LTD.",
-  },
-  {
-    name: "james cassegne",
-    date: "8 january, 2019",
-    amount: 5000,
-    status: "close",
-    company: "Collboy Tech LTD.",
-  },
-  {
-    name: "lucy brown",
-    date: "1 january, 2019",
-    amount: 89000,
-    status: "open",
-    company: "ABC Fintech LTD.",
-  },
-  {
-    name: "lucy brown",
-    date: "1 january, 2019",
-    amount: 89000,
-    status: "open",
-    company: "ABC Fintech LTD.",
-  },
-  {
-    name: "lucy brown",
-    date: "1 january, 2019",
-    amount: 89000,
-    status: "open",
-    company: "ABC Fintech LTD.",
-  },
-  {
-    name: "lucy brown",
-    date: "1 january, 2019",
-    amount: 89000,
-    status: "open",
-    company: "ABC Fintech LTD.",
-  },
-  {
-    name: "lucy brown",
-    date: "1 january, 2019",
-    amount: 89000,
-    status: "open",
-    company: "ABC Fintech LTD.",
-  },
-];
+const ListVente = (props) => {
+  const { site } = props;
 
-const ListVente = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -104,23 +42,24 @@ const ListVente = () => {
       <StyledTable>
         <TableHead>
           <TableRow>
+            <TableCell align="left">Rang</TableCell>
             <TableCell align="left">Vendeur</TableCell>
             <TableCell align="center">Acheteur</TableCell>
+            <TableCell align="center">Taux commission</TableCell>
             <TableCell align="center">Prix vente</TableCell>
-            <TableCell align="center">Commission</TableCell>
             <TableCell align="center">Date</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {subscribarList
-            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((subscriber, index) => (
+          {site.venteOfMonth?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            .map((vente, index) => (
               <TableRow key={index}>
-                <TableCell align="left">{subscriber.name}</TableCell>
-                <TableCell align="center">{subscriber.company}</TableCell>
-                <TableCell align="center">${subscriber.amount}</TableCell>
-                <TableCell align="center">${subscriber.amount}</TableCell>
-                <TableCell align="center">{subscriber.date}</TableCell>
+                <TableCell align="left">#{index+1}</TableCell>
+                <TableCell align="left">{vente.vendeur}</TableCell>
+                <TableCell align="center">{vente.acheteur}</TableCell>
+                <TableCell align="center">{vente.taux_comission}%</TableCell>
+                <TableCell align="center">{Util.formatNumber(vente.prix_achat)}</TableCell>
+                <TableCell align="center">{vente.date_achat}</TableCell>
               </TableRow>
             ))}
         </TableBody>
@@ -131,7 +70,7 @@ const ListVente = () => {
         page={page}
         component="div"
         rowsPerPage={rowsPerPage}
-        count={subscribarList.length}
+        count={site.venteOfMonth?.length}
         onPageChange={handleChangePage}
         rowsPerPageOptions={[5, 10, 25]}
         onRowsPerPageChange={handleChangeRowsPerPage}

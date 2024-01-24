@@ -10,7 +10,10 @@ import {
 } from '@mui/material';
 
 import MenuMarque from './MenuMarque';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+import { logoutUser } from '../../../deconnection';
+import { useNavigate } from 'react-router-dom';
 
 const StyledTable = styled(Table)(() => ({
   whiteSpace: 'pre',
@@ -22,35 +25,59 @@ const StyledTable = styled(Table)(() => ({
   }
 }));
 
-const TableMarque = ({ onEditMarque, selectedMarque, selectedMarqueId }) => {
+const TableMarque = ({
+  onEditMarque,
+  selectedMarque,
+  selectedMarqueId,
+  refreshTable,
+  onFormSubmitSuccess,
+  categorieId
+}) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(4);
-  const tableData = [
-    {
-      id_marque: '1',
-      marque: 'Mazda'
-    },
-    {
-      id_marque: '2',
-      marque: 'Ford'
-    },
-    {
-      id_marque: '3',
-      marque: 'Toyota'
-    },
-    {
-      id_marque: '4',
-      marque: 'Nissan'
-    },
-    {
-      id_marque: '5',
-      marque: 'Honda'
-    }
-  ];
-  const [data, setData] = useState(tableData);
+  const [data, setData] = useState([]);
+  const navigate = useNavigate();
+  const [nameCategorie, setNameCategorie] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        var url = 'https://vehiculeback.onrender.com/api/v1/marques';
+        if (categorieId !== null) {
+          url = `https://vehiculeback.onrender.com/api/v1/categories/v1/marques/${categorieId}`;
+        }
+        const token = localStorage.getItem('token');
+        const headers = new Headers();
+        headers.append('Authorization', `Bearer ${token}`);
+        headers.append('Content-Type', 'application/json');
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: headers
+        });
+        const jsonData = await response.json();
+        if (jsonData.status_code === '200') {
+          setData(jsonData.data);
+          setNameCategorie(data[0].categorie);
+        } else if (jsonData.status_code === '401') {
+          const logoutResult = await logoutUser();
+          if (logoutResult.success) {
+            navigate('/session/signin');
+          } else {
+            console.error('Échec de la déconnexion:', logoutResult.message);
+            alert(logoutResult.message);
+          }
+        } else {
+          alert(jsonData.message);
+        }
+      } catch (error) {
+        console.error('Erreur lors de la récupération des données:', error);
+      }
+    };
+
+    fetchData();
+  }, [refreshTable, navigate, categorieId, nameCategorie, data]);
 
   const handleChangePage = (_, newPage) => {
-    setData(tableData);
     setPage(newPage);
   };
 
@@ -66,7 +93,9 @@ const TableMarque = ({ onEditMarque, selectedMarque, selectedMarqueId }) => {
       <StyledTable>
         <TableHead>
           <TableRow>
-            <TableCell align="left">Name</TableCell>
+            <TableCell align="left">
+              {nameCategorie ? `Marque (categorie: ${nameCategorie})` : 'Libelle'}
+            </TableCell>
             <TableCell align="center">Option</TableCell>
           </TableRow>
         </TableHead>
@@ -77,6 +106,7 @@ const TableMarque = ({ onEditMarque, selectedMarque, selectedMarqueId }) => {
               <TableCell align="center">
                 <MenuMarque
                   id_marque={cat.id_marque}
+                  onFormSubmitSuccess={onFormSubmitSuccess}
                   onEditClick={() => handleEditClick(cat.marque, cat.id_marque)}
                 />
               </TableCell>

@@ -16,10 +16,18 @@ const Container = styled('div')(({ theme }) => ({
 const AppCategories = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedCategoryId, setSelectedCategoryId] = useState('');
-
+  const [refreshTable, setRefreshTable] = useState(false);
+  const token = localStorage.getItem('token');
+  if (token === null) {
+    window.location.href = '/session/signin';
+  }
   const handleEditCategory = (categoryName, categoryId) => {
     setSelectedCategory(categoryName);
     setSelectedCategoryId(categoryId);
+  };
+
+  const handleRefreshTable = () => {
+    setRefreshTable(!refreshTable);
   };
 
   return (
@@ -39,6 +47,7 @@ const AppCategories = () => {
         <FormCategorie
           selectedCategory={selectedCategory}
           selectedCategoryId={selectedCategoryId}
+          onFormSubmitSuccess={handleRefreshTable}
         />
       </SimpleCard>
       <Box py="12px" />
@@ -47,6 +56,8 @@ const AppCategories = () => {
           onEditCategory={handleEditCategory}
           selectedCategory={selectedCategory}
           selectedCategoryId={selectedCategoryId}
+          onFormSubmitSuccess={handleRefreshTable}
+          refreshTable={refreshTable}
         />
       </SimpleCard>
     </Container>

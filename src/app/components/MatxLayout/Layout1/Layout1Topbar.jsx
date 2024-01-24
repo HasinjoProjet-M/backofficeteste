@@ -1,3 +1,4 @@
+import { logoutUser } from '../../../../deconnection';
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import {
@@ -19,6 +20,7 @@ import useSettings from 'app/hooks/useSettings';
 import { topBarHeight } from 'app/utils/constant';
 
 import { Span } from '../../Typography';
+import { useNavigate } from 'react-router-dom';
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
   color: theme.palette.text.primary
@@ -76,8 +78,9 @@ const StyledItem = styled(MenuItem)(({ theme }) => ({
 const Layout1Topbar = () => {
   const theme = useTheme();
   const { settings, updateSettings } = useSettings();
-  const { logout, user } = useAuth();
+  const { logout } = useAuth();
   const isMdScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const navigate = useNavigate();
 
   const updateSidebarMode = (sidebarSettings) => {
     updateSettings({ layout1Settings: { leftSidebar: { ...sidebarSettings } } });
@@ -92,6 +95,16 @@ const Layout1Topbar = () => {
       mode = layout1Settings.leftSidebar.mode === 'full' ? 'close' : 'full';
     }
     updateSidebarMode({ mode });
+  };
+  const handleClick = async () => {
+    const logoutResult = await logoutUser();
+    logout();
+    if (logoutResult.success) {
+      navigate('/session/signin');
+    } else {
+      console.error('Échec de la déconnexion:', logoutResult.message);
+      alert(logoutResult.message);
+    }
   };
 
   return (
@@ -112,7 +125,10 @@ const Layout1Topbar = () => {
                     <strong>Admin</strong>
                   </Span>
                 </Hidden>
-                <Avatar src={user.avatar} sx={{ cursor: 'pointer' }} />
+                <Avatar
+                  src={'/assets/images/illustrations/icon-admin.svg'}
+                  sx={{ cursor: 'pointer' }}
+                />
               </UserMenu>
             }
           >
@@ -123,7 +139,7 @@ const Layout1Topbar = () => {
               </Link>
             </StyledItem>
 
-            <StyledItem onClick={logout}>
+            <StyledItem onClick={handleClick}>
               <Icon> power_settings_new </Icon>
               <Span> Logout </Span>
             </StyledItem>

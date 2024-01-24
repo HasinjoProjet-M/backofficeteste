@@ -5,74 +5,121 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { Span } from 'app/components/Typography';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
+import { logoutUser } from '../../../deconnection';
+import { useNavigate } from 'react-router-dom';
 
 const TextField = styled(TextValidator)(() => ({
   width: '100%',
   marginBottom: '16px'
 }));
 
-const tableData = [
-  {
-    id_marque: '1',
-    marque: 'Mazda'
-  },
-  {
-    id_marque: '2',
-    marque: 'Ford'
-  },
-  {
-    id_marque: '3',
-    marque: 'Toyota'
-  },
-  {
-    id_marque: '4',
-    marque: 'Nissan'
-  },
-  {
-    id_marque: '5',
-    marque: 'Honda'
-  }
-];
-
-const tableDataCategorie = [
-  {
-    id_categorie: '1',
-    categorie: 'Berline'
-  },
-  {
-    id_categorie: '2',
-    categorie: '4 x 4'
-  },
-  {
-    id_categorie: '3',
-    categorie: '4 x 2'
-  }
-];
 const FormModel = () => {
-  const [state, setState] = useState({ date: new Date() });
-  const { model } = state;
-  const [tabMaques, setTabMarques] = useState(tableData);
-  const [tabCategories, setTabCategories] = useState(tableDataCategorie);
+  const [model, setModel] = useState('');
+  const [tabMaques, setTabMarques] = useState([]);
+  const [tabCategories, setTabCategories] = useState([]);
   const [marque_id, setMarque_id] = useState('');
   const [categorie_id, setCategorie_id] = useState('');
+  const navigate = useNavigate();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        //tabMaques
+        const responseMaques = await fetch('https://vehiculeback.onrender.com/api/v1/marques', {
+          method: 'GET',
+          headers: new Headers({
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          })
+        });
+        const jsonDataMaques = await responseMaques.json();
+        if (jsonDataMaques.status_code === '200') {
+          setTabMarques(jsonDataMaques.data);
+        } else if (jsonDataMaques.status_code === '401') {
+          const logoutResult = await logoutUser();
+          if (logoutResult.success) {
+            navigate('/session/signin');
+          } else {
+            console.error('Échec de la déconnexion:', logoutResult.message);
+            alert(logoutResult.message);
+          }
+        } else {
+          alert(jsonDataMaques.message);
+        }
+
+        // tabCategories
+        const responseCategories = await fetch(
+          'https://vehiculeback.onrender.com/api/v1/categories',
+          {
+            method: 'GET',
+            headers: new Headers({
+              Authorization: `Bearer ${localStorage.getItem('token')}`
+            })
+          }
+        );
+        const jsonDataCategories = await responseCategories.json();
+        if (jsonDataCategories.status_code === '200') {
+          setTabCategories(jsonDataCategories.data);
+        } else if (jsonDataCategories.status_code === '401') {
+          const logoutResult = await logoutUser();
+          if (logoutResult.success) {
+            navigate('/session/signin');
+          } else {
+            console.error('Échec de la déconnexion:', logoutResult.message);
+            alert(logoutResult.message);
+          }
+        } else {
+          alert(jsonDataCategories.message);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [navigate]);
 
   const handleChange2 = (event) => {
-    setState({ ...state, [event.target.name]: event.target.value });
+    setModel(event.target.value);
   };
   const handleMarqueChange = (event) => {
-    setTabMarques(tableData);
-    setTabCategories(tableDataCategorie);
     setMarque_id(event.target.value);
   };
   const handleCategorieChange = (event) => {
     setCategorie_id(event.target.value);
   };
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     console.log(marque_id + ' c ' + categorie_id + '  m ' + model);
-    // console.log("submitted");
-    // console.log(event);
+    const value = JSON.stringify({
+      marque_id: marque_id,
+      categorie_id: categorie_id,
+      model: model
+    });
+    const headers = new Headers();
+    headers.append('Authorization', `Bearer ${localStorage.getItem('token')}`);
+    headers.append('Content-Type', 'application/json');
+
+    const response = await fetch(`https://vehiculeback.onrender.com/api/v1/models`, {
+      method: 'POST',
+      headers: headers,
+      body: value
+    });
+    const jsonData = await response.json();
+    if (jsonData.status_code === '401') {
+      alert(jsonData.message);
+      const logoutResult = await logoutUser();
+      if (logoutResult.success) {
+        navigate('/session/signin');
+      } else {
+        console.error('Échec de la déconnexion:', logoutResult.message);
+        alert(logoutResult.message);
+      }
+    } else if (jsonData.status_code === '404') {
+      alert(jsonData.message);
+    }
+    setMarque_id('');
+    setCategorie_id('');
+    setModel('');
   };
   return (
     <div>
@@ -118,7 +165,7 @@ const FormModel = () => {
                   onChange={handleCategorieChange}
                 >
                   {tabCategories.map((item) => (
-                    <MenuItem value={item.id_categorie}>{item.categorie}</MenuItem>
+                    <MenuItem value={item.idCategorie}>{item.categorie}</MenuItem>
                   ))}
                 </Select>
               </FormControl>

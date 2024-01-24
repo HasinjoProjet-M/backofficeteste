@@ -14,17 +14,16 @@ import TableListeannee from './TableListeannee';
 // Utilisez des accolades pour déstructurer les propriétés
 const AppListeannees = ({ model, modelId, onClose }) => {
   const [affmodel, setAffmodel] = useState(model);
-  const [affmodelId, setAffmodelId] = useState(modelId);
   const [open, setOpen] = useState(true);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleClose = () => {
     setAffmodel(model);
-    setAffmodelId(modelId);
     setOpen(false);
-    onClose(); // Appeler la fonction de fermeture du composant parent
+    onClose();
   };
+  console.log(modelId + ' eto tb ');
 
   return (
     <Box>
@@ -40,7 +39,7 @@ const AppListeannees = ({ model, modelId, onClose }) => {
 
         <DialogContent>
           <DialogContentText>
-            <TableListeannee modelId={affmodelId} />
+            <TableListeannee modelId={modelId} />
           </DialogContentText>
         </DialogContent>
 

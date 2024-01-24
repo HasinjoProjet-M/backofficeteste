@@ -1,15 +1,10 @@
-import {
-  Box,
-  IconButton,
-  styled,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow
-} from '@mui/material';
+import { Box, styled, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 
 import MaxHeightMenu from './MaxHeightMenu';
+import { useState, useEffect } from 'react';
+
+import * as Util from 'app/functions/Util';
+import Api from 'app/functions/Api';
 
 const StyledTable = styled(Table)(({ theme }) => ({
   whiteSpace: 'pre',
@@ -21,52 +16,21 @@ const StyledTable = styled(Table)(({ theme }) => ({
   }
 }));
 
-const subscribarList = [
-  {
-    name: 'john doe',
-    date: '18 january, 2019',
-    amount: 1000,
-    status: 'close',
-    company: 'ABC Fintech LTD.'
-  },
-  {
-    name: 'kessy bryan',
-    date: '10 january, 2019',
-    amount: 9000,
-    status: 'open',
-    company: 'My Fintech LTD.'
-  },
-  {
-    name: 'james cassegne',
-    date: '8 january, 2019',
-    amount: 5000,
-    status: 'close',
-    company: 'Collboy Tech LTD.'
-  },
-  {
-    name: 'lucy brown',
-    date: '1 january, 2019',
-    amount: 89000,
-    status: 'open',
-    company: 'ABC Fintech LTD.'
-  },
-  {
-    name: 'lucy brown',
-    date: '1 january, 2019',
-    amount: 89000,
-    status: 'open',
-    company: 'ABC Fintech LTD.'
-  },
-  {
-    name: 'lucy brown',
-    date: '1 january, 2019',
-    amount: 89000,
-    status: 'open',
-    company: 'ABC Fintech LTD.'
-  }
-];
-
 const SimpleTable = () => {
+  const [annonces, setAnnonces] = useState([]);
+
+  useEffect(() => {
+    const fetchAnnonce = async () => {
+      const response = await Api.fetch('https://vehiculeback.onrender.com/api/v1/annonces', 'GET', {
+        'Content-Type': 'application/json'
+      });
+
+      setAnnonces(response.data); // Assurez-vous que la structure des données est correcte
+    };
+
+    fetchAnnonce(); // Appel de la fonction asynchrone
+  }, []);
+
   return (
     <Box width="100%" overflow="auto">
       <StyledTable>
@@ -74,7 +38,7 @@ const SimpleTable = () => {
           <TableRow>
             <TableCell align="left">Auteur</TableCell>
             <TableCell align="center">Date</TableCell>
-            <TableCell align="center">Description</TableCell>
+            <TableCell align="center">Voiture</TableCell>
             <TableCell align="center">Prix</TableCell>
             <TableCell align="center">Statut</TableCell>
             <TableCell align="right">Autre</TableCell>
@@ -82,17 +46,17 @@ const SimpleTable = () => {
         </TableHead>
 
         <TableBody>
-          {subscribarList.map((subscriber, index) => (
+          {annonces.map((annonce, index) => (
             <TableRow key={index}>
-              <TableCell align="left">{subscriber.name}</TableCell>
-              <TableCell align="center">{subscriber.company}</TableCell>
-              <TableCell align="center">{subscriber.date}</TableCell>
-              <TableCell align="center">{subscriber.status}</TableCell>
-              <TableCell align="center">${subscriber.amount}</TableCell>
+              <TableCell align="left">{annonce.auteur}</TableCell>
+              <TableCell align="center">{Util.formatDate(annonce.date_annonce)}</TableCell>
+              <TableCell align="center">{annonce.detailvoiture.marque}</TableCell>
+              <TableCell align="center">Ar {Util.formatNumber(annonce.prix_vente)}</TableCell>
+              <TableCell align="center">{Util.getStatus(annonce.statut)}</TableCell>
               <TableCell align="right">
-                <IconButton>
-                  <MaxHeightMenu />
-                </IconButton>
+                {/* <IconButton> */}
+                <MaxHeightMenu annonce_id={annonce.annonce_id} />
+                {/* </IconButton> */}
               </TableCell>
             </TableRow>
           ))}

@@ -1,11 +1,12 @@
 import { Box, Icon, IconButton, Menu, MenuItem } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { logoutUser } from '../../../deconnection';
 
-const options = ['Modifier', 'Liste Model'];
-const ITEM_HEIGHT = 20;
+const options = ['Modifier', 'Supprimer', 'Liste Model'];
+const ITEM_HEIGHT = 40;
 
-const MenuMarque = ({ id_marque, onEditClick }) => {
+const MenuMarque = ({ id_marque, onEditClick, onFormSubmitSuccess }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
@@ -19,14 +20,39 @@ const MenuMarque = ({ id_marque, onEditClick }) => {
   function handleClose() {
     setAnchorEl(null);
   }
-  const handleMenuItemClick = (option) => {
+  const handleMenuItemClick = async (option) => {
     if (option === 'Modifier') {
       console.log('modifier');
       onEditClick();
-      navigate('/');
     } else if (option === 'Liste Model') {
-      navigate('/listesmodels');
+      const id_marqueParam = id_marque ? `?marque_id=${id_marque}` : '';
+      navigate(`/listesmodels${id_marqueParam}`);
+    } else {
+      const token = localStorage.getItem('token');
+      const headers = new Headers();
+      headers.append('Authorization', `Bearer ${token}`);
+      const response = await fetch(
+        `https://vehiculeback.onrender.com/api/v1/marques/${id_marque}`,
+        {
+          method: 'DELETE',
+          headers: headers
+        }
+      );
+      const jsonData = await response.json();
+      if (jsonData.status_code === '401') {
+        alert(jsonData.message);
+        const logoutResult = await logoutUser();
+        if (logoutResult.success) {
+          navigate('/session/signin');
+        } else {
+          console.error('Échec de la déconnexion:', logoutResult.message);
+          alert(logoutResult.message);
+        }
+      } else if (jsonData.status_code === '404') {
+        alert(jsonData.message);
+      }
     }
+    onFormSubmitSuccess();
     handleClose();
   };
   return (

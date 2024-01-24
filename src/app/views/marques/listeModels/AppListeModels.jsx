@@ -13,6 +13,11 @@ const Container = styled('div')(({ theme }) => ({
 }));
 
 const AppListeModels = () => {
+  const token = localStorage.getItem('token');
+  if (token === null) {
+    window.location.href = '/session/signin';
+  }
+
   return (
     <Container>
       <Box className="breadcrumb">

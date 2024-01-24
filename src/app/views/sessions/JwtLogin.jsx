@@ -46,6 +46,11 @@ const validationSchema = Yup.object().shape({
 
 const JwtLogin = () => {
   const [loading, setLoading] = useState(false);
+  const token = localStorage.getItem('token');
+
+  if (token != null) {
+    window.location.href = '/';
+  }
 
   const handleFormSubmit = async (values) => {
     setLoading(true);
@@ -53,7 +58,7 @@ const JwtLogin = () => {
     data.append('email', values.email);
     data.append('mdp', values.password);
     try {
-      const response = await fetch('http://localhost:8080/api/auth/v1/login', {
+      const response = await fetch('https://vehiculeback.onrender.com/api/auth/v1/login/admin', {
         method: 'POST',
         body: data
       });
@@ -78,7 +83,7 @@ const JwtLogin = () => {
         <Grid container>
           <Grid item sm={6} xs={12}>
             <JustifyBox p={4} height="100%" sx={{ minWidth: 320 }}>
-              <img src="/assets/images/illustrations/dreamer.svg" width="100%" alt="" />
+              <img src="/assets/images/illustrations/logo.jpg" width="100%" alt="" />
             </JustifyBox>
           </Grid>
 

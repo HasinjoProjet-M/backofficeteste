@@ -17,6 +17,8 @@ const Annonces = Loadable(lazy(() => import('app/views/annonce/list/AppTable')))
 // stat page
 const Accueil = Loadable(lazy(() => import('app/views/acceuil/AppTableauBord')));
 
+const Users = Loadable(lazy(() => import('app/views/utilisateur/list/AppTable')));
+
 const routes = [
   {
     element: (
@@ -38,6 +40,11 @@ const routes = [
       {
         path: '/public/annonces',
         element: <Annonces />,
+        auth: authRoles.admin
+      },
+      {
+        path: '/utilisateur',
+        element: <Users />,
         auth: authRoles.admin
       }
     ]

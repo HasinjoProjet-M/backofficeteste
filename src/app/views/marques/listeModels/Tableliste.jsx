@@ -12,27 +12,6 @@ import {
 import MenuListModel from './MenuListModel';
 import { useState } from 'react';
 
-const tableData = [
-  {
-    id_categorie: '1',
-    categorie: 'Berline',
-    marque: 'Ford',
-    model: 'FRGI'
-  },
-  {
-    id_categorie: '2',
-    categorie: '4 x 4',
-    marque: 'Ford',
-    model: 'T9'
-  },
-  {
-    id_categorie: '3',
-    categorie: '4 x 4',
-    marque: 'Ford',
-    model: 'T6'
-  }
-];
-
 const StyledTable = styled(Table)(() => ({
   whiteSpace: 'pre',
   '& thead': {
@@ -44,12 +23,10 @@ const StyledTable = styled(Table)(() => ({
 }));
 
 const Tableliste = (props) => {
-  const [resultat, setResultat] = useState(tableData);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(4);
   const handleChangePage = (_, newPage) => {
     setPage(newPage);
-    setResultat(tableData);
   };
 
   const handleChangeRowsPerPage = (event) => {
@@ -68,7 +45,7 @@ const Tableliste = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {resultat
+          {props.tab
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((cat, index) => (
               <TableRow key={index}>
@@ -76,7 +53,7 @@ const Tableliste = (props) => {
                 <TableCell align="center">{cat.categorie}</TableCell>
                 <TableCell align="center">{cat.model}</TableCell>
                 <TableCell align="center">
-                  <MenuListModel id_model={cat.id_categorie} model={cat.model} />
+                  <MenuListModel id_model={cat.idModel} model={cat.model} />
                 </TableCell>
               </TableRow>
             ))}
@@ -88,7 +65,7 @@ const Tableliste = (props) => {
         page={page}
         component="div"
         rowsPerPage={rowsPerPage}
-        count={resultat.length}
+        count={props.tab.length}
         onPageChange={handleChangePage}
         rowsPerPageOptions={[5, 10, 25]}
         onRowsPerPageChange={handleChangeRowsPerPage}

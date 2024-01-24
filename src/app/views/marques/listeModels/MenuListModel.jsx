@@ -1,6 +1,7 @@
 import { Box, Icon, IconButton, Menu, MenuItem } from '@mui/material';
 import { useState } from 'react';
 import AppListeannees from '../../models/listesannees/AppListeannees';
+import Appajoutannee from '../../models/ajoutannee/Appajoutannee';
 const options = ['Ajoute année', 'Liste annee'];
 const ITEM_HEIGHT = 20;
 
@@ -9,6 +10,7 @@ const MenuListModel = ({ id_model, model }) => {
   const [affmodel, setAffmodel] = useState(model);
   const [affmodelId, setAffModelId] = useState(id_model);
   const [appListeanneesOpen, setAppListeanneesOpen] = useState(false);
+  const [appAjouteAnneeOpen, setAppAjouteAnneeOpen] = useState(false);
 
   const open = Boolean(anchorEl);
 
@@ -25,14 +27,18 @@ const MenuListModel = ({ id_model, model }) => {
   }
   const handleMenuItemClick = (option) => {
     if (option === 'Liste annee') {
-      console.log('Liste annee');
       setAppListeanneesOpen(true);
     } else if (option === 'Ajoute année') {
+      setAppAjouteAnneeOpen(true);
     }
     handleClose();
   };
   const handleAppListeanneesClose = () => {
     setAppListeanneesOpen(false);
+  };
+
+  const handleAppAjoutClose = () => {
+    setAppAjouteAnneeOpen(false);
   };
   return (
     <Box>
@@ -68,6 +74,15 @@ const MenuListModel = ({ id_model, model }) => {
           modelId={affmodelId}
           statusOpen={true}
           onClose={handleAppListeanneesClose}
+        />
+      )}
+
+      {appAjouteAnneeOpen && (
+        <Appajoutannee
+          model={affmodel}
+          modelId={affmodelId}
+          statusOpen={true}
+          onClose={handleAppAjoutClose}
         />
       )}
     </Box>

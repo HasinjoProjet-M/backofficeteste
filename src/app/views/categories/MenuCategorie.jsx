@@ -1,16 +1,15 @@
 import { Box, Icon, IconButton, Menu, MenuItem } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { logoutUser } from '../../../deconnection';
 
-const options = ['Modifier', 'Liste Marque'];
-const ITEM_HEIGHT = 20;
+const options = ['Modifier', 'Supprimer', 'Liste Marque'];
+const ITEM_HEIGHT = 40;
 
-const MenuCategorie = ({ id_categorie, onEditClick }) => {
+const MenuCategorie = ({ id_categorie, onEditClick, onFormSubmitSuccess }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
-
-  console.log(`id_categorie reçu dans MenuCategorie : ${id_categorie}`);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -20,14 +19,38 @@ const MenuCategorie = ({ id_categorie, onEditClick }) => {
     setAnchorEl(null);
   };
 
-  const handleMenuItemClick = (option) => {
+  const handleMenuItemClick = async (option) => {
     if (option === 'Modifier') {
-      console.log('modifier');
       onEditClick();
-      //navigate(``);
     } else if (option === 'Liste Marque') {
-      navigate('/marques');
+      const id_categorieParam = id_categorie ? `?categorie_id=${id_categorie}` : '';
+      navigate(`/marques${id_categorieParam}`);
+    } else {
+      const token = localStorage.getItem('token');
+      const headers = new Headers();
+      headers.append('Authorization', `Bearer ${token}`);
+      const response = await fetch(
+        `https://vehiculeback.onrender.com/api/v1/categories/${id_categorie}`,
+        {
+          method: 'DELETE',
+          headers: headers
+        }
+      );
+      const jsonData = await response.json();
+      if (jsonData.status_code === '401') {
+        alert(jsonData.message);
+        const logoutResult = await logoutUser();
+        if (logoutResult.success) {
+          navigate('/session/signin');
+        } else {
+          console.error('Échec de la déconnexion:', logoutResult.message);
+          alert(logoutResult.message);
+        }
+      } else if (jsonData.status_code === '404') {
+        alert(jsonData.message);
+      }
     }
+    onFormSubmitSuccess();
     handleClose();
   };
   return (

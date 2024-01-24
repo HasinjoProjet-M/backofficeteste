@@ -26,7 +26,7 @@ const Paragraph = styled('p')(({ theme }) => ({
 const UpgradeCard = () => {
   return (
     <CardRoot>
-      <StyledCard elevation={0}>
+      <StyledCard>
         <img src="/assets/images/illustrations/upgrade.svg" alt="upgrade" />
 
         <Paragraph>

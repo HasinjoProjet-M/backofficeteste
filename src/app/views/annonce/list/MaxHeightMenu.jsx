@@ -1,3 +1,4 @@
+// MaxHeightMenu.jsx
 import { Box, Icon, IconButton, Menu, MenuItem } from "@mui/material";
 import React from "react";
 import { useNavigate } from 'react-router-dom';
@@ -6,12 +7,11 @@ const options = [
   { label: 'Detail', path: '/annonces/detail' , icon: 'info_outline'},
   { label: 'Valider', path: '/' , icon: 'check'},
   { label: 'Supprimer', path: '/' , icon: 'delete'},
-  // Ajoutez d'autres options avec des chemins
 ];
 
 const ITEM_HEIGHT = 48;
 
-function MaxHeightMenu() {
+function MaxHeightMenu({ annonce_id }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ function MaxHeightMenu() {
   }
 
   function handleRedirect(path) {
-    navigate(path);
+    navigate(`${path}?annonce_id=${annonce_id}`);
     handleClose();
   }
 
@@ -47,6 +47,8 @@ function MaxHeightMenu() {
         onClose={handleClose}
         PaperProps={{ style: { maxHeight: ITEM_HEIGHT * 4.5, width: 200 } }}
       >
+        {/* Utilisez annonce_id ici */}
+        #{annonce_id}
         {options.map((option) => (
           <MenuItem key={option.label} selected={option === "Pyxis"} onClick={() => handleRedirect(option.path)}>
             <Icon>{option.icon}</Icon>&nbsp;&nbsp;{option.label}

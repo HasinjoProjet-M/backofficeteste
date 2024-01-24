@@ -3,6 +3,7 @@ import { Box, styled } from '@mui/material';
 import { Breadcrumb, SimpleCard } from 'app/components';
 import FormMarque from './FormMarque';
 import TableMarque from './TableMarque';
+import { useLocation } from 'react-router-dom';
 
 const Container = styled('div')(({ theme }) => ({
   margin: '30px',
@@ -14,6 +15,10 @@ const Container = styled('div')(({ theme }) => ({
 }));
 
 const AppMarques = () => {
+  const token = localStorage.getItem('token');
+  if (token === null) {
+    window.location.href = '/session/signin';
+  }
   const [selectedMarque, setSelectedMarque] = useState('');
   const [selectedMarqueId, setSelectedMarqueId] = useState('');
   const handleEditMarque = (marque, marqueId) => {
@@ -21,6 +26,13 @@ const AppMarques = () => {
     setSelectedMarqueId(marqueId);
   };
 
+  const [refreshTable, setRefreshTable] = useState(false);
+  const handleRefreshTable = () => {
+    setRefreshTable(!refreshTable);
+  };
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const categorieId = searchParams.get('categorie_id');
   return (
     <Container>
       <Box className="breadcrumb">
@@ -34,7 +46,11 @@ const AppMarques = () => {
             : 'Ajout de nouvelle marque de voiture'
         }
       >
-        <FormMarque selectedMarque={selectedMarque} selectedMarqueId={selectedMarqueId} />
+        <FormMarque
+          selectedMarque={selectedMarque}
+          selectedMarqueId={selectedMarqueId}
+          onFormSubmitSuccess={handleRefreshTable}
+        />
       </SimpleCard>
       <Box py="12px" />
       <SimpleCard title="Liste marques">
@@ -42,6 +58,9 @@ const AppMarques = () => {
           onEditMarque={handleEditMarque}
           selectedMarque={selectedMarque}
           selectedMarqueId={selectedMarqueId}
+          onFormSubmitSuccess={handleRefreshTable}
+          refreshTable={refreshTable}
+          categorieId={categorieId}
         />
       </SimpleCard>
     </Container>

@@ -2,8 +2,15 @@ import React from 'react';
 import { useTheme } from '@mui/material';
 import ReactEcharts from 'echarts-for-react';
 
-const DoughnutChart = ({ height, color = [] }) => {
+import * as Util from 'app/functions/Util';
+
+const DoughnutChart = ({ height, color = [], site}) => {
   const theme = useTheme();
+
+  if (!site) {
+    // Handle the case when site is undefined
+    return null;
+  }
 
   const option = {
     legend: {
@@ -80,14 +87,14 @@ const DoughnutChart = ({ height, color = [] }) => {
         },
         data: [
           {
-            value: 65,
+            value: Util.getStatAnnonceDataOfMonth(site?.statAnnonce, 2),
             name: 'Valide'
           },
           {
-            value: 20,
+            value: Util.getStatAnnonceDataOfMonth(site?.statAnnonce, 3),
             name: 'Vendu'
           },
-          { value: 15, 
+          { value: Util.getStatAnnonceDataOfMonth(site?.statAnnonce, 1), 
             name: 'Autre' 
           }
         ],
@@ -103,6 +110,8 @@ const DoughnutChart = ({ height, color = [] }) => {
   };
 
   return (
+    <div>
+    {/* #{site?.statAnnonce?.[0]?.statut} */}
     <ReactEcharts
       style={{ height: height }}
       option={{
@@ -110,6 +119,7 @@ const DoughnutChart = ({ height, color = [] }) => {
         color: [...color]
       }}
     />
+    </div>
   );
 };
 

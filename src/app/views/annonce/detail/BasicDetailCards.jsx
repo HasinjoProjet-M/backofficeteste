@@ -1,6 +1,8 @@
 import { Box, Card, Grid, Icon, IconButton, styled, Tooltip } from '@mui/material';
 import { Small } from 'app/components/Typography';
 
+import * as Util from 'app/functions/Util';
+
 const StyledCard = styled(Card)(({ theme }) => ({
   display: 'flex',
   flexWrap: 'wrap',
@@ -27,12 +29,13 @@ const Heading = styled('h6')(({ theme }) => ({
   color: theme.palette.primary.main,
 }));
 
-const BasicDetailCards = () => {
+const BasicDetailCards = (props) => {
+  const { annonce } = props;
   const cardList = [
-    { name: 'Auteur', amount: 3050, icon: 'person' },
-    { name: 'Prix vente', amount: '$80,500', icon: 'attach_money' },
-    { name: 'Lieu', amount: '8.5% Stock Surplus', icon: 'location_on' },
-    { name: 'Date', amount: '305 Orders', icon: 'event' },
+    { name: 'Auteur', value: annonce.auteur, icon: 'person' },
+    { name: 'Prix vente', value: Util.formatNumber(annonce.prix_vente), icon: 'attach_money' },
+    { name: 'Lieu', value: annonce.lieu, icon: 'location_on' },
+    { name: 'Date', value: Util.formatDate(annonce.date_annonce), icon: 'event' },
   ];
 
   return (
@@ -44,7 +47,7 @@ const BasicDetailCards = () => {
               <Icon className="icon">{item.icon}</Icon>
               <Box ml="12px">
                 <Small>{item.name}</Small>
-                <Heading>{item.amount}</Heading>
+                <Heading>{item.value}</Heading>
               </Box>
             </ContentBox>
 

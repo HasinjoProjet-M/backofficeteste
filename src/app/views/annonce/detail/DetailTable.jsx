@@ -1,5 +1,7 @@
 import { Box, styled, Table, TableBody, TableCell, TableRow } from '@mui/material';
 
+import * as Util from 'app/functions/Util';
+
 const StyledTable = styled(Table)(({ theme }) => ({
   whiteSpace: 'pre',
   '& thead': {
@@ -10,22 +12,24 @@ const StyledTable = styled(Table)(({ theme }) => ({
   }
 }));
 
-const subscribarList = [
-  {
-    title: 'Id',
-    value: '1'
-  },
-  {
-    title: 'Description',
-    value: 'Une courte description ici'
-  },
-  {
-    title: 'Statut',
-    value: '1'
-  }
-];
+const DetailTable = (props) => {
+  const { annonce } = props;
 
-const DetailTable = () => {
+  const subscribarList = [
+    {
+      title: 'Id',
+      value: annonce.annonce_id
+    },
+    {
+      title: 'Description',
+      value: annonce.description
+    },
+    {
+      title: 'Statut',
+      value: Util.getStatus(annonce.statut)
+    }
+  ];
+
   return (
     <Box width="100%" overflow="auto">
       <StyledTable>

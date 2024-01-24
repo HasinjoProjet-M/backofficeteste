@@ -8,9 +8,11 @@ import {
   TablePagination,
   TableRow
 } from '@mui/material';
+import { logoutUser } from '../../../deconnection';
+import { useNavigate } from 'react-router-dom';
 
 import MenuCategorie from './MenuCategorie';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const StyledTable = styled(Table)(() => ({
   whiteSpace: 'pre',
@@ -22,27 +24,52 @@ const StyledTable = styled(Table)(() => ({
   }
 }));
 
-const TableCategorie = ({ onEditCategory, selectedCategory, selectedCategoryId }) => {
+const TableCategorie = ({
+  onEditCategory,
+  selectedCategory,
+  selectedCategoryId,
+  refreshTable,
+  onFormSubmitSuccess
+}) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(4);
-  const tableData = [
-    {
-      id_categorie: '1',
-      categorie: 'Berline'
-    },
-    {
-      id_categorie: '2',
-      categorie: '4 x 4'
-    },
-    {
-      id_categorie: '3',
-      categorie: '4 x 2'
-    }
-  ];
-  const [data, setData] = useState(tableData);
+  const [data, setData] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const headers = new Headers();
+        headers.append('Authorization', `Bearer ${token}`);
+        const response = await fetch('https://vehiculeback.onrender.com/api/v1/categories', {
+          method: 'GET',
+          headers: headers
+        });
+        const jsonData = await response.json();
+        if (jsonData.status_code === '200') {
+          setData(jsonData.data);
+        } else if (jsonData.status_code === '401') {
+          const logoutResult = await logoutUser();
+          if (logoutResult.success) {
+            navigate('/session/signin');
+          } else {
+            console.error('Échec de la déconnexion:', logoutResult.message);
+            alert(logoutResult.message);
+          }
+        } else {
+          alert(jsonData.message);
+        }
+
+        //
+      } catch (error) {
+        console.error('Erreur lors de la récupération des données:', error);
+      }
+    };
+    fetchData();
+  }, [refreshTable, navigate]);
 
   const handleChangePage = (_, newPage) => {
-    setData(tableData);
     setPage(newPage);
   };
 
@@ -69,8 +96,9 @@ const TableCategorie = ({ onEditCategory, selectedCategory, selectedCategoryId }
               <TableCell align="left">{cat.categorie}</TableCell>
               <TableCell align="center">
                 <MenuCategorie
-                  id_categorie={cat.id_categorie}
-                  onEditClick={() => handleEditClick(cat.categorie, cat.id_categorie)}
+                  id_categorie={cat.idCategorie}
+                  onFormSubmitSuccess={onFormSubmitSuccess}
+                  onEditClick={() => handleEditClick(cat.categorie, cat.idCategorie)}
                 />
               </TableCell>
             </TableRow>
