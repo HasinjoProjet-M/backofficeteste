@@ -2,13 +2,6 @@ import { logoutUser } from '../../deconnection';
 class Api {
   static async fetch(url, method = 'GET', headers = {}) {
     try {
-      /*if (localStorage.getItem('token') == null) {
-        console.log('Token initialisee');
-        localStorage.setItem(
-          'token',
-          'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwicm9sZSI6MTAsImFkbWluIjp0cnVlLCJpYXQiOjE3MDU5ODkzMjgsImV4cCI6MTcwNTk5NjUyOH0.AXnOSjodbAr1iJasfL18X_s7OkB_ThWOg85TYA653rQVyJnLCRPcVKN1q_XwLRAJLJ7CuDVXm5tWRVpmY1zLzw'
-        );
-      }*/
       const token = localStorage.getItem('token');
 
       if (token == null) {

@@ -41,6 +41,7 @@ const Analytics = () => {
         }
       );
 
+      console.log(response.data);
       setSite(response.data); // Assurez-vous que la structure des données est correcte
     };
 
