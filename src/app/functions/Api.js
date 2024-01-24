@@ -4,6 +4,10 @@ class Api {
     try {
       const token = localStorage.getItem('token');
 
+      if (token == null) {
+        window.location.href = '/session/signin';
+      }
+
       const response = await fetch(url, {
         method,
         headers: {
