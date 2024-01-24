@@ -38,12 +38,12 @@ const routes = [
 
       // annonce route
       {
-        path: '/public/annonces',
+        path: 'public/annonces',
         element: <Annonces />,
         auth: authRoles.admin
       },
       {
-        path: '/utilisateur',
+        path: 'utilisateur',
         element: <Users />,
         auth: authRoles.admin
       }
@@ -51,7 +51,7 @@ const routes = [
   },
 
   // session pages route
-  { path: '/session/404', element: <NotFound /> },
+  { path: 'session/404', element: <NotFound /> },
   { path: 'session/signin', element: <JwtLogin /> },
   { path: 'session/signup', element: <JwtRegister /> },
 
