@@ -15,12 +15,24 @@ const AppDetailAnnonce = Loadable(lazy(() => import('../annonce/detail/AppDetail
 const AppCarburants = Loadable(lazy(() => import('app/views/carburants/Appcarburants')));
 
 const materialRoutes = [
-  { path: '/categories', element: <AppCategories /> },
-  { path: '/marques', element: <AppMarques /> },
-  { path: '/models', element: <AppModels /> },
-  { path: '/listesmodels', element: <AppListeModels /> },
-  { path: '/annonces/detail', element: <AppDetailAnnonce /> },
-  { path: '/carburants', element: <AppCarburants /> }
+  {
+    path: 'https://main--stirring-chebakia-f56620.netlify.app/categories',
+    element: <AppCategories />
+  },
+  { path: 'https://main--stirring-chebakia-f56620.netlify.app/marques', element: <AppMarques /> },
+  { path: 'https://main--stirring-chebakia-f56620.netlify.app/models', element: <AppModels /> },
+  {
+    path: 'https://main--stirring-chebakia-f56620.netlify.app/listesmodels',
+    element: <AppListeModels />
+  },
+  {
+    path: 'https://main--stirring-chebakia-f56620.netlify.app/annonces/detail',
+    element: <AppDetailAnnonce />
+  },
+  {
+    path: 'https://main--stirring-chebakia-f56620.netlify.app/carburants',
+    element: <AppCarburants />
+  }
 ];
 
 export default materialRoutes;

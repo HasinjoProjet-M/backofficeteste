@@ -31,19 +31,19 @@ const routes = [
 
       // statistique route
       {
-        path: '/accueil',
+        path: 'https://main--stirring-chebakia-f56620.netlify.app/accueil',
         element: <Accueil />,
         auth: authRoles.admin
       },
 
       // annonce route
       {
-        path: '/public/annonces',
+        path: 'https://main--stirring-chebakia-f56620.netlify.app/public/annonces',
         element: <Annonces />,
         auth: authRoles.admin
       },
       {
-        path: '/utilisateur',
+        path: 'https://main--stirring-chebakia-f56620.netlify.app/utilisateur',
         element: <Users />,
         auth: authRoles.admin
       }
@@ -51,11 +51,20 @@ const routes = [
   },
 
   // session pages route
-  { path: '/session/404', element: <NotFound /> },
-  { path: '/session/signin', element: <JwtLogin /> },
-  { path: '/session/signup', element: <JwtRegister /> },
+  { path: 'https://main--stirring-chebakia-f56620.netlify.app/session/404', element: <NotFound /> },
+  {
+    path: 'https://main--stirring-chebakia-f56620.netlify.app/session/signin',
+    element: <JwtLogin />
+  },
+  {
+    path: 'https://main--stirring-chebakia-f56620.netlify.app/session/signup',
+    element: <JwtRegister />
+  },
 
-  { path: '/', element: <Navigate to="/accueil" /> },
+  {
+    path: 'https://main--stirring-chebakia-f56620.netlify.app/',
+    element: <Navigate to="https://main--stirring-chebakia-f56620.netlify.app/accueil" />
+  },
   { path: '*', element: <NotFound /> }
 ];
 
