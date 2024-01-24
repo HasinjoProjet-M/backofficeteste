@@ -32,7 +32,8 @@ const Analytics = () => {
   const [site, setSite] = useState({});
 
   useEffect(() => {
-    const fetchStat = async () => {
+    setSite([]);
+    /*const fetchStat = async () => {
       const response = await Api.fetch(
         'https://vehiculeback.onrender.com/api/v1/statistique',
         'GET',
@@ -47,7 +48,7 @@ const Analytics = () => {
 
     if (localStorage.getItem('token') == null) {
       fetchStat(); // Appel de la fonction asynchrone
-    }
+    }*/
   }, []);
 
   return (
