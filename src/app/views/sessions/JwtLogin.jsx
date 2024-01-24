@@ -48,12 +48,6 @@ const validationSchema = Yup.object().shape({
 const JwtLogin = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const token = localStorage.getItem('token');
-
-  if (token != null) {
-    // window.location.href = '/accueil';
-    navigate('/categories');
-  }
 
   const handleFormSubmit = async (values) => {
     setLoading(true);
@@ -69,8 +63,7 @@ const JwtLogin = () => {
       if (response.ok) {
         localStorage.setItem('token', responseData.data);
         console.log(responseData);
-        console.log('Fa minain');
-        window.location.href = '/accueil';
+        navigate('/categories');
       } else {
         setLoading(false);
         alert(responseData.message);
