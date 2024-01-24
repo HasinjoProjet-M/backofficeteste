@@ -69,7 +69,8 @@ const JwtLogin = () => {
       if (response.ok) {
         console.log(responseData);
         localStorage.setItem('token', responseData.data);
-        window.location.href = 'accueil';
+        console.log(response);
+        // window.location.href = 'accueil';
       } else {
         setLoading(false);
         alert(responseData.message);
