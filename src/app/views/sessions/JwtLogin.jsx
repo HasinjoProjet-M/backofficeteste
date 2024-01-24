@@ -68,7 +68,7 @@ const JwtLogin = () => {
       const responseData = await response.json();
       if (response.ok) {
         localStorage.setItem('token', responseData.data);
-        console.log(response);
+        console.log(responseData);
         navigate('/categories');
       } else {
         setLoading(false);
