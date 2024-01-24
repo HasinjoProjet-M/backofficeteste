@@ -31,7 +31,7 @@ const JWTRoot = styled(JustifyBox)(() => ({
 
 // inital login credentials
 const initialValues = {
-  email: 'admin@example.com',
+  email: 'admin@gmail.com',
   password: 'root',
   remember: true
 };
@@ -49,7 +49,7 @@ const JwtLogin = () => {
   const token = localStorage.getItem('token');
 
   if (token != null) {
-    window.location.href = '/';
+    window.location.href = '/accueil';
   }
 
   const handleFormSubmit = async (values) => {
@@ -66,7 +66,7 @@ const JwtLogin = () => {
       if (response.ok) {
         console.log(responseData);
         localStorage.setItem('token', responseData.data);
-        window.location.href = '/';
+        window.location.href = '/accueil';
       } else {
         setLoading(false);
         alert(responseData.message);
