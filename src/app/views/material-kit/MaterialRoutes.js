@@ -16,21 +16,21 @@ const AppCarburants = Loadable(lazy(() => import('app/views/carburants/Appcarbur
 
 const materialRoutes = [
   {
-    path: '/categories',
+    path: 'categories',
     element: <AppCategories />
   },
-  { path: '/marques', element: <AppMarques /> },
-  { path: '/models', element: <AppModels /> },
+  { path: 'marques', element: <AppMarques /> },
+  { path: 'models', element: <AppModels /> },
   {
-    path: '/listesmodels',
+    path: 'listesmodels',
     element: <AppListeModels />
   },
   {
-    path: '/annonces/detail',
+    path: 'annonces/detail',
     element: <AppDetailAnnonce />
   },
   {
-    path: '/carburants',
+    path: 'carburants',
     element: <AppCarburants />
   }
 ];

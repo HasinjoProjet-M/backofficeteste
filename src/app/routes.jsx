@@ -31,19 +31,19 @@ const routes = [
 
       // statistique route
       {
-        path: '/accueil',
+        path: 'accueil',
         element: <Accueil />,
         auth: authRoles.admin
       },
 
       // annonce route
       {
-        path: '/public/annonces',
+        path: 'public/annonces',
         element: <Annonces />,
         auth: authRoles.admin
       },
       {
-        path: '/utilisateur',
+        path: 'utilisateur',
         element: <Users />,
         auth: authRoles.admin
       }
@@ -51,11 +51,11 @@ const routes = [
   },
 
   // session pages route
-  { path: '/session/404', element: <NotFound /> },
-  { path: '/session/signin', element: <JwtLogin /> },
-  { path: '/session/signup', element: <JwtRegister /> },
+  { path: 'session/404', element: <NotFound /> },
+  { path: 'session/signin', element: <JwtLogin /> },
+  { path: 'session/signup', element: <JwtRegister /> },
 
-  { path: '/', element: <Navigate to="/categories" /> },
+  { path: '', element: <Navigate to="/categories" /> },
   { path: '*', element: <NotFound /> }
 ];
 
