@@ -18,7 +18,7 @@ export const navigations = [
   {
     name: 'Utilisateurs',
     icon: 'people',
-    path: 'utilisateur'
+    path: '/utilisateur'
   },
   { name: 'Carburant', path: '/carburants', icon: 'dashboard' },
 

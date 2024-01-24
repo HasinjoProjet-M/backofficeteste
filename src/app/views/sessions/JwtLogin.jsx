@@ -69,7 +69,8 @@ const JwtLogin = () => {
       if (response.ok) {
         localStorage.setItem('token', responseData.data);
         console.log(responseData);
-        navigate('/categories');
+        console.log('Fa minain');
+        window.location.href = '/accueil';
       } else {
         setLoading(false);
         alert(responseData.message);
