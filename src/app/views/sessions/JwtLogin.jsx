@@ -4,6 +4,7 @@ import { Box, styled } from '@mui/material';
 import { Formik } from 'formik';
 import { useState } from 'react';
 import * as Yup from 'yup';
+import { useNavigate } from 'react-router-dom';
 
 const FlexBox = styled(Box)(() => ({ display: 'flex', alignItems: 'center' }));
 
@@ -45,11 +46,13 @@ const validationSchema = Yup.object().shape({
 });
 
 const JwtLogin = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const token = localStorage.getItem('token');
 
   if (token != null) {
-    window.location.href = '/accueil';
+    // window.location.href = '/accueil';
+    navigate('/accueil');
   }
 
   const handleFormSubmit = async (values) => {
