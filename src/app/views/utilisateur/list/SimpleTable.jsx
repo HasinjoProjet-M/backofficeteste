@@ -1,12 +1,4 @@
-import {
-  Box,
-  styled,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-} from "@mui/material";
+import { Box, styled, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 
 import EllipsMenu from './EllipsMenu';
 import { useState, useEffect } from 'react';
@@ -15,13 +7,13 @@ import * as Util from 'app/functions/Util';
 import Api from 'app/functions/Api';
 
 const StyledTable = styled(Table)(({ theme }) => ({
-  whiteSpace: "pre",
-  "& thead": {
-    "& tr": { "& th": { paddingLeft: 0, paddingRight: 0 } },
+  whiteSpace: 'pre',
+  '& thead': {
+    '& tr': { '& th': { paddingLeft: 0, paddingRight: 0 } }
   },
-  "& tbody": {
-    "& tr": { "& td": { paddingLeft: 0, textTransform: "capitalize" } },
-  },
+  '& tbody': {
+    '& tr': { '& td': { paddingLeft: 0, textTransform: 'capitalize' } }
+  }
 }));
 
 const SimpleTable = () => {
@@ -29,14 +21,14 @@ const SimpleTable = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const response = await Api.fetch('http://localhost:8080/api/auth', 'GET', {
-        'Content-Type': 'application/json',
+      const response = await Api.fetch('https://vehiculeback.onrender.com/api/auth', 'GET', {
+        'Content-Type': 'application/json'
       });
 
-      setUsers(response.data);  // Assurez-vous que la structure des données est correcte
+      setUsers(response.data); // Assurez-vous que la structure des données est correcte
     };
 
-    fetchUsers();  // Appel de la fonction asynchrone
+    fetchUsers(); // Appel de la fonction asynchrone
   }, []);
 
   return (
@@ -66,7 +58,7 @@ const SimpleTable = () => {
               <TableCell align="center">{user.nb_annonce}</TableCell>
               <TableCell align="center">{user.nb_achat}</TableCell>
               <TableCell align="right">
-                  <EllipsMenu />
+                <EllipsMenu />
               </TableCell>
             </TableRow>
           ))}

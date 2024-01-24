@@ -6,9 +6,9 @@ import StatVente from './shared/StatVente';
 import UpgradeCard from './shared/UpgradeCard';
 import ListVente from './shared/ListVente';
 import { SimpleCard } from 'app/components';
-
 import { useState, useEffect } from 'react';
-//import Api from 'app/functions/Api';
+import { useNavigate } from 'react-router-dom';
+import { logoutUser } from '../../../deconnection';
 
 const ContentBox = styled('div')(({ theme }) => ({
   margin: '30px',
@@ -30,26 +30,37 @@ const SubTitle = styled('span')(({ theme }) => ({
 const Analytics = () => {
   const { palette } = useTheme();
   const [site, setSite] = useState({});
+  const token = localStorage.getItem('token');
+  const navigate = useNavigate();
+  if (token === null) {
+    window.location.href = '/session/signin';
+  }
 
   useEffect(() => {
-    setSite([]);
-    /*const fetchStat = async () => {
-      const response = await Api.fetch(
-        'https://vehiculeback.onrender.com/api/v1/statistique',
-        'GET',
-        {
-          'Content-Type': 'application/json'
+    const fetchStat = async () => {
+      const headers = new Headers();
+      headers.append('Authorization', `Bearer ${token}`);
+      const response = await fetch('https://vehiculeback.onrender.com/api/v1/statistique', {
+        method: 'GET',
+        headers: headers
+      });
+      const jsonData = await response.json();
+      if (jsonData.status_code === '200') {
+        setSite(jsonData.data);
+      } else if (jsonData.status_code === '401') {
+        const logoutResult = await logoutUser();
+        if (logoutResult.success) {
+          navigate('/session/signin');
+        } else {
+          console.error('Échec de la déconnexion:', logoutResult.message);
+          alert(logoutResult.message);
         }
-      );
-
-      console.log(response.data);
-      setSite(response.data); // Assurez-vous que la structure des données est correcte
+      } else {
+        alert(jsonData.message);
+      }
     };
-
-    if (localStorage.getItem('token') == null) {
-      fetchStat(); // Appel de la fonction asynchrone
-    }*/
-  }, []);
+    fetchStat();
+  }, [navigate, token]);
 
   return (
     <Fragment>

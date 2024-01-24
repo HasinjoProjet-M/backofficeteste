@@ -1,11 +1,15 @@
+import { useNavigate } from 'react-router-dom';
 import { logoutUser } from '../../deconnection';
+
 class Api {
+  static navigate = useNavigate();
+
   static async fetch(url, method = 'GET', headers = {}) {
     try {
       const token = localStorage.getItem('token');
 
       if (token == null) {
-        window.location.href = '/session/signin';
+        Api.navigate('/session/signin');
       }
 
       const response = await fetch(url, {
