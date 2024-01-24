@@ -52,7 +52,7 @@ const JwtLogin = () => {
 
   if (token != null) {
     // window.location.href = '/accueil';
-    navigate('/accueil');
+    navigate('/categories');
   }
 
   const handleFormSubmit = async (values) => {
@@ -69,7 +69,7 @@ const JwtLogin = () => {
       if (response.ok) {
         localStorage.setItem('token', responseData.data);
         console.log(response);
-        window.location.href = 'accueil';
+        window.location.href = '/categorie';
       } else {
         setLoading(false);
         alert(responseData.message);

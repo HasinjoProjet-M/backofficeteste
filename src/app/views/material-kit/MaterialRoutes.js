@@ -16,21 +16,21 @@ const AppCarburants = Loadable(lazy(() => import('app/views/carburants/Appcarbur
 
 const materialRoutes = [
   {
-    path: 'https://main--stirring-chebakia-f56620.netlify.app/categories',
+    path: '/categories',
     element: <AppCategories />
   },
-  { path: 'https://main--stirring-chebakia-f56620.netlify.app/marques', element: <AppMarques /> },
-  { path: 'https://main--stirring-chebakia-f56620.netlify.app/models', element: <AppModels /> },
+  { path: '/marques', element: <AppMarques /> },
+  { path: '/models', element: <AppModels /> },
   {
-    path: 'https://main--stirring-chebakia-f56620.netlify.app/listesmodels',
+    path: '/listesmodels',
     element: <AppListeModels />
   },
   {
-    path: 'https://main--stirring-chebakia-f56620.netlify.app/annonces/detail',
+    path: '/annonces/detail',
     element: <AppDetailAnnonce />
   },
   {
-    path: 'https://main--stirring-chebakia-f56620.netlify.app/carburants',
+    path: '/carburants',
     element: <AppCarburants />
   }
 ];
