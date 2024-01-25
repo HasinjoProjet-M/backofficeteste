@@ -46,6 +46,7 @@ const Analytics = () => {
       });
       const jsonData = await response.json();
       if (jsonData.status_code === '200') {
+        console.log(jsonData.data);
         setSite(jsonData.data);
       } else if (jsonData.status_code === '401') {
         const logoutResult = await logoutUser();

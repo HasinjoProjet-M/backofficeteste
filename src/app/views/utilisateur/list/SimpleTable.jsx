@@ -24,11 +24,11 @@ const SimpleTable = () => {
       const response = await Api.fetch('https://vehiculeback.onrender.com/api/auth', 'GET', {
         'Content-Type': 'application/json'
       });
-
-      setUsers(response.data); // Assurez-vous que la structure des données est correcte
+      console.log(response);
+      setUsers(response.data);
     };
 
-    fetchUsers(); // Appel de la fonction asynchrone
+    fetchUsers();
   }, []);
 
   return (
@@ -48,20 +48,21 @@ const SimpleTable = () => {
         </TableHead>
 
         <TableBody>
-          {users.map((user, index) => (
-            <TableRow key={index}>
-              <TableCell align="left">{user.id_utilisateur}</TableCell>
-              <TableCell align="center">{user.nom}</TableCell>
-              <TableCell align="center">{user.prenom}</TableCell>
-              <TableCell align="center">{user.genre}</TableCell>
-              <TableCell align="center">{Util.formatDate(user.date_naissance)}</TableCell>
-              <TableCell align="center">{user.nb_annonce}</TableCell>
-              <TableCell align="center">{user.nb_achat}</TableCell>
-              <TableCell align="right">
-                <EllipsMenu />
-              </TableCell>
-            </TableRow>
-          ))}
+          {users &&
+            users.map((user, index) => (
+              <TableRow key={index}>
+                <TableCell align="left">{user.id_utilisateur}</TableCell>
+                <TableCell align="center">{user.nom}</TableCell>
+                <TableCell align="center">{user.prenom}</TableCell>
+                <TableCell align="center">{user.genre}</TableCell>
+                <TableCell align="center">{Util.formatDate(user.date_naissance)}</TableCell>
+                <TableCell align="center">{user.nb_annonce}</TableCell>
+                <TableCell align="center">{user.nb_achat}</TableCell>
+                <TableCell align="right">
+                  <EllipsMenu />
+                </TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </StyledTable>
     </Box>

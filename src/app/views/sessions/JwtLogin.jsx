@@ -49,6 +49,10 @@ const JwtLogin = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
+  if (localStorage.getItem('token') != null) {
+    window.location.href = '/accueil';
+  }
+
   const handleFormSubmit = async (values) => {
     setLoading(true);
     const data = new FormData();
@@ -62,8 +66,7 @@ const JwtLogin = () => {
       const responseData = await response.json();
       if (response.ok) {
         localStorage.setItem('token', responseData.data);
-        console.log(responseData);
-        navigate('/categories');
+        navigate('/accueil');
       } else {
         setLoading(false);
         alert(responseData.message);

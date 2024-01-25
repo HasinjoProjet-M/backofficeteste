@@ -1,4 +1,14 @@
-import { Box, styled, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import {
+  Box,
+  styled,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  MenuItem,
+  Select
+} from '@mui/material';
 
 import MaxHeightMenu from './MaxHeightMenu';
 import { useState, useEffect } from 'react';
@@ -18,6 +28,7 @@ const StyledTable = styled(Table)(({ theme }) => ({
 
 const SimpleTable = () => {
   const [annonces, setAnnonces] = useState([]);
+  const [filtreStatut, setFiltreStatut] = useState('all');
 
   useEffect(() => {
     const fetchAnnonce = async () => {
@@ -31,38 +42,60 @@ const SimpleTable = () => {
     fetchAnnonce(); // Appel de la fonction asynchrone
   }, []);
 
-  return (
-    <Box width="100%" overflow="auto">
-      <StyledTable>
-        <TableHead>
-          <TableRow>
-            <TableCell align="left">Auteur</TableCell>
-            <TableCell align="center">Date</TableCell>
-            <TableCell align="center">Voiture</TableCell>
-            <TableCell align="center">Prix</TableCell>
-            <TableCell align="center">Statut</TableCell>
-            <TableCell align="right">Autre</TableCell>
-          </TableRow>
-        </TableHead>
+  const annoncesFiltrees = annonces.filter((annonce) => {
+    if (filtreStatut === 'all') {
+      return true; // Afficher toutes les annonces si le filtre est "Tous"
+    } else if (filtreStatut === 'valid') {
+      return annonce.statut === 2;
+    } else {
+      return annonce.statut === 1;
+    }
+  });
 
-        <TableBody>
-          {annonces.map((annonce, index) => (
-            <TableRow key={index}>
-              <TableCell align="left">{annonce.auteur}</TableCell>
-              <TableCell align="center">{Util.formatDate(annonce.date_annonce)}</TableCell>
-              <TableCell align="center">{annonce.detailvoiture.marque}</TableCell>
-              <TableCell align="center">Ar {Util.formatNumber(annonce.prix_vente)}</TableCell>
-              <TableCell align="center">{Util.getStatus(annonce.statut)}</TableCell>
-              <TableCell align="right">
-                {/* <IconButton> */}
-                <MaxHeightMenu annonce_id={annonce.annonce_id} />
-                {/* </IconButton> */}
-              </TableCell>
+  return (
+    <div>
+      <Select
+        style={{ float: 'right', marginTop: '-4%', marginBottom: '2%' }}
+        size="small"
+        value={filtreStatut}
+        onChange={(e) => setFiltreStatut(e.target.value)}
+      >
+        <MenuItem value="all">Tous</MenuItem>
+        <MenuItem value="valid">Valide</MenuItem>
+        <MenuItem value="invalid">Non valide</MenuItem>
+      </Select>
+      <Box width="100%" overflow="auto">
+        <StyledTable>
+          <TableHead>
+            <TableRow>
+              <TableCell align="left">Auteur</TableCell>
+              <TableCell align="center">Date</TableCell>
+              <TableCell align="center">Voiture</TableCell>
+              <TableCell align="center">Prix</TableCell>
+              <TableCell align="center">Statut</TableCell>
+              <TableCell align="right">Autre</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </StyledTable>
-    </Box>
+          </TableHead>
+
+          <TableBody>
+            {annoncesFiltrees.map((annonce, index) => (
+              <TableRow key={index}>
+                <TableCell align="left">
+                  {annonce.auteur}({annonce.annonce_id})
+                </TableCell>
+                <TableCell align="center">{Util.formatDate(annonce.date_annonce)}</TableCell>
+                <TableCell align="center">{annonce.detailvoiture.marque}</TableCell>
+                <TableCell align="center">Ar {Util.formatNumber(annonce.prix_vente)}</TableCell>
+                <TableCell align="center">{Util.getStatus(annonce.statut)}</TableCell>
+                <TableCell align="right">
+                  <MaxHeightMenu annonce_id={annonce.annonce_id} />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </StyledTable>
+      </Box>
+    </div>
   );
 };
 
