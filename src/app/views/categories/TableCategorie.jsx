@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   styled,
@@ -10,9 +11,9 @@ import {
 } from '@mui/material';
 import { logoutUser } from '../../../deconnection';
 import { useNavigate } from 'react-router-dom';
+import LoadingIndicator from 'app/components/LoadingIndicator';
 
 import MenuCategorie from './MenuCategorie';
-import { useState, useEffect } from 'react';
 
 const StyledTable = styled(Table)(() => ({
   whiteSpace: 'pre',
@@ -34,10 +35,12 @@ const TableCategorie = ({
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(4);
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false); // Ajoutez l'état de chargement
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true); // Démarrez le chargement
       try {
         const token = localStorage.getItem('token');
         const headers = new Headers();
@@ -61,9 +64,10 @@ const TableCategorie = ({
           alert(jsonData.message);
         }
 
-        //
+        setLoading(false); // Arrêtez le chargement après la récupération des données
       } catch (error) {
         console.error('Erreur lors de la récupération des données:', error);
+        setLoading(false); // Arrêtez le chargement en cas d'erreur
       }
     };
     fetchData();
@@ -77,34 +81,37 @@ const TableCategorie = ({
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
   const handleEditClick = (categoryName, categoryId) => {
     onEditCategory(categoryName, categoryId);
   };
 
   return (
     <Box width="100%" overflow="auto">
-      <StyledTable>
-        <TableHead>
-          <TableRow>
-            <TableCell align="left">Name</TableCell>
-            <TableCell align="center">Option</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((cat, index) => (
-            <TableRow key={index}>
-              <TableCell align="left">{cat.categorie}</TableCell>
-              <TableCell align="center">
-                <MenuCategorie
-                  id_categorie={cat.idCategorie}
-                  onFormSubmitSuccess={onFormSubmitSuccess}
-                  onEditClick={() => handleEditClick(cat.categorie, cat.idCategorie)}
-                />
-              </TableCell>
+      <LoadingIndicator loading={loading}>
+        <StyledTable>
+          <TableHead>
+            <TableRow>
+              <TableCell align="left">Name</TableCell>
+              <TableCell align="center">Option</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </StyledTable>
+          </TableHead>
+          <TableBody>
+            {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((cat, index) => (
+              <TableRow key={index}>
+                <TableCell align="left">{cat.categorie}</TableCell>
+                <TableCell align="center">
+                  <MenuCategorie
+                    id_categorie={cat.idCategorie}
+                    onFormSubmitSuccess={onFormSubmitSuccess}
+                    onEditClick={() => handleEditClick(cat.categorie, cat.idCategorie)}
+                  />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </StyledTable>
+      </LoadingIndicator>
 
       <TablePagination
         sx={{ px: 2 }}

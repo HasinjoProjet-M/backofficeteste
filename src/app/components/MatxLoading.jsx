@@ -1,4 +1,4 @@
-import { CircularProgress, Box, styled } from '@mui/material';
+import { Box, styled } from '@mui/material';
 
 const StyledLoading = styled('div')({
   width: '100%',
@@ -23,7 +23,6 @@ const Loading = () => {
     <StyledLoading>
       <Box position="relative">
         <img src="/assets/images/logo-circle.svg" alt="" />
-        <CircularProgress className="circleProgress" />
       </Box>
     </StyledLoading>
   );

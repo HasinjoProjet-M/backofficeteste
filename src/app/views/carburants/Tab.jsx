@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   styled,
@@ -11,7 +12,7 @@ import {
 import { logoutUser } from '../../../deconnection';
 import { useNavigate } from 'react-router-dom';
 import MenuCarburant from './MenuCarburant';
-import { useState, useEffect } from 'react';
+import LoadingIndicator from 'app/components/LoadingIndicator';
 
 const StyledTable = styled(Table)(() => ({
   whiteSpace: 'pre',
@@ -27,7 +28,9 @@ const Tab = (props) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(4);
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true); // Ajoutez l'état de chargement
   const navigate = useNavigate();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -55,14 +58,16 @@ const Tab = (props) => {
         } else {
           alert(jsonData.message);
         }
-
-        //
       } catch (error) {
         console.error('Erreur lors de la récupération des données:', error);
+      } finally {
+        setLoading(false); // Arrêtez le chargement une fois les données récupérées
       }
     };
+
     fetchData();
   }, [navigate, props.refreshTable]);
+
   const handleChangePage = (_, newPage) => {
     setPage(newPage);
   };
@@ -71,48 +76,53 @@ const Tab = (props) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
   const handleEditClick = (carburantName, carburantId) => {
     console.log('Mey ty ' + carburantId);
     props.onEditCarburant(carburantName, carburantId);
   };
+
   return (
     <Box width="100%" overflow="auto">
-      <StyledTable>
-        <TableHead>
-          <TableRow>
-            <TableCell align="left">Name</TableCell>
-            <TableCell align="center">Option</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((cat, index) => (
-            <TableRow key={index}>
-              <TableCell align="left">{cat.carburant}</TableCell>
-              <TableCell align="center">
-                <MenuCarburant
-                  idCarburat={cat.idCarburant}
-                  onFormSubmitSuccess={props.onFormSubmitSuccess}
-                  onEditClick={() => handleEditClick(cat.carburant, cat.idCarburant)}
-                />
-              </TableCell>
+      <LoadingIndicator loading={loading}>
+        <StyledTable>
+          <TableHead>
+            <TableRow>
+              <TableCell align="left">Name</TableCell>
+              <TableCell align="center">Option</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </StyledTable>
+          </TableHead>
+          <TableBody>
+            {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((cat, index) => (
+              <TableRow key={index}>
+                <TableCell align="left">{cat.carburant}</TableCell>
+                <TableCell align="center">
+                  <MenuCarburant
+                    idCarburat={cat.idCarburant}
+                    onFormSubmitSuccess={props.onFormSubmitSuccess}
+                    onEditClick={() => handleEditClick(cat.carburant, cat.idCarburant)}
+                  />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </StyledTable>
 
-      <TablePagination
-        sx={{ px: 2 }}
-        page={page}
-        component="div"
-        rowsPerPage={rowsPerPage}
-        count={data.length}
-        onPageChange={handleChangePage}
-        rowsPerPageOptions={[5, 10, 25]}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-        nextIconButtonProps={{ 'aria-label': 'Next Page' }}
-        backIconButtonProps={{ 'aria-label': 'Previous Page' }}
-      />
+        <TablePagination
+          sx={{ px: 2 }}
+          page={page}
+          component="div"
+          rowsPerPage={rowsPerPage}
+          count={data.length}
+          onPageChange={handleChangePage}
+          rowsPerPageOptions={[5, 10, 25]}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          nextIconButtonProps={{ 'aria-label': 'Next Page' }}
+          backIconButtonProps={{ 'aria-label': 'Previous Page' }}
+        />
+      </LoadingIndicator>
     </Box>
   );
 };
+
 export default Tab;

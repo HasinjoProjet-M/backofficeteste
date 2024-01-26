@@ -8,7 +8,7 @@ export const navigations = [
   { name: 'Categorie', path: '/categories', icon: 'dashboard' },
   {
     name: 'Marque',
-    icon: 'security',
+    icon: 'directions_car',
     children: [
       { name: 'Ajout marque', iconText: 'SI', path: '/marques' },
       { name: 'Ajout model', iconText: 'SU', path: '/models' },
@@ -20,7 +20,7 @@ export const navigations = [
     icon: 'people',
     path: '/utilisateur'
   },
-  { name: 'Carburant', path: '/carburants', icon: 'dashboard' },
+  { name: 'Carburant', path: '/carburants', icon: 'local_gas_station' },
 
   {
     name: 'Public',
