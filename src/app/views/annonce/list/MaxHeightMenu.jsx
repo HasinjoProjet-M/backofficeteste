@@ -27,7 +27,7 @@ function MaxHeightMenu({ annonce_id }) {
 
   async function validate() {
     try {
-      await Api.fetch(
+      const response = await Api.fetch(
         `https://vehiculeback.onrender.com/api/v1/annonces/autoriser/${annonce_id}`,
         'PUT',
         {

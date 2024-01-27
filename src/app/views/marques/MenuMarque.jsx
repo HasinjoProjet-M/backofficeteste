@@ -3,7 +3,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logoutUser } from '../../../deconnection';
 
-const options = ['Modifier', 'Supprimer', 'Liste Model'];
 const ITEM_HEIGHT = 40;
 
 const MenuMarque = ({ id_marque, onEditClick, onFormSubmitSuccess }) => {
@@ -73,15 +72,15 @@ const MenuMarque = ({ id_marque, onEditClick, onFormSubmitSuccess }) => {
         onClose={handleClose}
         PaperProps={{ style: { maxHeight: ITEM_HEIGHT * 4.5, width: 200 } }}
       >
-        {options.map((option) => (
-          <MenuItem
-            key={option}
-            selected={option === 'Pyxis'}
-            onClick={() => handleMenuItemClick(option)}
-          >
-            {option}
-          </MenuItem>
-        ))}
+        <MenuItem key={0} onClick={() => handleMenuItemClick('Modifier')}>
+          <Icon>border_color</Icon>&nbsp;&nbsp;Modifer
+        </MenuItem>
+        <MenuItem key={1} onClick={() => handleMenuItemClick('Liste Model')}>
+          <Icon>view_list</Icon>&nbsp;&nbsp;Liste Model
+        </MenuItem>
+        <MenuItem key={2} onClick={() => handleMenuItemClick('Supprimer')}>
+          <Icon>delete</Icon>&nbsp;&nbsp;Supprimer
+        </MenuItem>
       </Menu>
     </Box>
   );

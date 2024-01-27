@@ -31,17 +31,11 @@ const Heading = styled('h6')(({ theme }) => ({
 
 const StatCards = (props) => {
   const { site } = props;
-  // const cardList = [
-  //   { name: 'Total Membres', amount: 3050, icon: 'group' },
-  //   { name: 'Total Commissions', amount: 'Ar 1,800,500', icon: 'payment' },
-  //   { name: 'Total Annonces', amount: '112', icon: 'public' },
-  //   { name: 'Total Ventes', amount: '30', icon: 'shopping_cart' },
-  // ];
 
   const cardList = [
     { name: 'Total Membres', amount: Util.formatNumber2(site.statEffectif?.total_utilisateur), icon: 'group' },
     { name: 'Total Commissions', amount: Util.formatNumber(site.statEffectif?.total_commission), icon: 'payment' },
-    { name: 'Total Annonces', amount: Util.formatNumber2(site.statEffectif?.total_annonce), icon: 'public' },
+    { name: 'Total Annonces (En affiche)', amount: Util.formatNumber2(site.statEffectif?.total_annonce), icon: 'public' },
     { name: 'Total Ventes', amount: Util.formatNumber2(site.statEffectif?.total_vente), icon: 'shopping_cart' },
   ];
 

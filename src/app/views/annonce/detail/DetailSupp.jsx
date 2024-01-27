@@ -102,11 +102,11 @@ const DetailSupp = (props) => {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
         >
-          <Typography className="heading">
-            <sub style={{ paddingRight: '1%' }}>
+          <Typography className="heading" style={{ width: '100%' }}>
+            <sub style={{ paddingRight: '0.5%' }}>
               <Icon>{'info_outline'}</Icon>
             </sub>{' '}
-            Propriete
+            Proprietes
           </Typography>
         </AccordionSummary>
 
@@ -151,7 +151,7 @@ const DetailSupp = (props) => {
               >
                 <img
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  src="/assets/images/sq-8.jpg"
+                  src={photo.data}
                   alt="upgrade"
                 />
                 {/* <img

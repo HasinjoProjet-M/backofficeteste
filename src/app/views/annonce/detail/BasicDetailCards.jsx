@@ -10,7 +10,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
   justifyContent: 'space-between',
   padding: '24px !important',
   background: theme.palette.background.paper,
-  [theme.breakpoints.down('sm')]: { padding: '16px !important' },
+  [theme.breakpoints.down('sm')]: { padding: '16px !important' }
 }));
 
 const ContentBox = styled(Box)(({ theme }) => ({
@@ -18,7 +18,7 @@ const ContentBox = styled(Box)(({ theme }) => ({
   flexWrap: 'wrap',
   alignItems: 'center',
   '& small': { color: theme.palette.text.secondary },
-  '& .icon': { opacity: 0.6, fontSize: '44px', color: theme.palette.primary.main },
+  '& .icon': { opacity: 0.6, fontSize: '44px', color: theme.palette.primary.main }
 }));
 
 const Heading = styled('h6')(({ theme }) => ({
@@ -26,7 +26,7 @@ const Heading = styled('h6')(({ theme }) => ({
   marginTop: '4px',
   fontSize: '14px',
   fontWeight: '500',
-  color: theme.palette.primary.main,
+  color: theme.palette.primary.main
 }));
 
 const BasicDetailCards = (props) => {
@@ -35,7 +35,7 @@ const BasicDetailCards = (props) => {
     { name: 'Auteur', value: annonce.auteur, icon: 'person' },
     { name: 'Prix vente', value: Util.formatNumber(annonce.prix_vente), icon: 'attach_money' },
     { name: 'Lieu', value: annonce.lieu, icon: 'location_on' },
-    { name: 'Date', value: Util.formatDate(annonce.date_annonce), icon: 'event' },
+    { name: 'Date', value: Util.formatDate(annonce.date_annonce), icon: 'event' }
   ];
 
   return (

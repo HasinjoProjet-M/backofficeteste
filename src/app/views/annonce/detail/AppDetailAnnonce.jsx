@@ -7,7 +7,6 @@ import DetailTable from './DetailTable';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Api from 'app/functions/Api';
-import LoadingIndicator from 'app/components/LoadingIndicator';
 
 const Container = styled('div')(({ theme }) => ({
   margin: '30px',
@@ -24,57 +23,47 @@ const AppDetailAnnonce = () => {
   const annonce_id = searchParams.get(`annonce_id`);
 
   const [annonce, setAnnonce] = useState({});
-  const [loading, setLoading] = useState(true);
+
+  // console.log("Id: " + annonce_id);
 
   useEffect(() => {
     const fetchAnnonce = async () => {
-      try {
-        const response = await Api.fetch(
-          `https://vehiculeback.onrender.com/api/v1/annonces/${annonce_id}`,
-          'GET',
-          {
-            'Content-Type': 'application/json'
-          }
-        );
+      const response = await Api.fetch(
+        `https://vehiculeback.onrender.com/api/v1/annonces/${annonce_id}`,
+        'GET',
+        {
+          'Content-Type': 'application/json'
+        }
+      );
 
-        setAnnonce(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Erreur lors de la récupération des données:', error);
-        setLoading(false);
-      }
+      setAnnonce(response.data); // Assurez-vous que la structure des données est correcte
     };
 
-    fetchAnnonce();
-  }, [annonce_id]);
+    fetchAnnonce(); // Appel de la fonction asynchrone
+  }, [annonce_id]); // Déclencher l'effet à chaque changement de l'ID
 
   return (
     <Container>
-      <LoadingIndicator loading={loading}>
-        <Box className="breadcrumb">
-          <Breadcrumb
-            routeSegments={[
-              { name: 'Annonce', path: '/public/annonces' },
-              { name: 'Detail Annonce' }
-            ]}
-          />
-        </Box>
+      <Box className="breadcrumb">
+        <Breadcrumb
+          routeSegments={[{ name: 'Material', path: '/material' }, { name: 'Detail Annonce' }]}
+        />
+      </Box>
 
-        <Stack spacing={3}>
-          <BasicDetailCards annonce={annonce} />
-        </Stack>
+      <Stack spacing={3}>
+        <BasicDetailCards annonce={annonce} />
+      </Stack>
 
-        <Stack spacing={3}>
-          <SimpleCard title="basic">
-            <DetailTable annonce={annonce} />
-          </SimpleCard>
-        </Stack>
-        <br />
+      <Stack spacing={3}>
+        <SimpleCard title="basic">
+          <DetailTable annonce={annonce} />
+        </SimpleCard>
+      </Stack>
+      <br />
 
-        <Stack spacing={3} className="">
-          <DetailSupp annonce={annonce} />
-        </Stack>
-      </LoadingIndicator>
+      <Stack spacing={3} className="">
+        <DetailSupp annonce={annonce} />
+      </Stack>
     </Container>
   );
 };

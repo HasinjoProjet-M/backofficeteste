@@ -13,7 +13,7 @@ const TextField = styled(TextValidator)(() => ({
 
 const FormCategorie = ({ selectedCategory, selectedCategoryId, onFormSubmitSuccess }) => {
   const [categorie, setCategorie] = useState(selectedCategory || '');
-  const [loading, setLoading] = useState(false); // Ajoutez l'état de chargement
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (event) => {

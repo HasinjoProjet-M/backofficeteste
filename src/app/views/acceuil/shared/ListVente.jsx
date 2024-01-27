@@ -6,20 +6,20 @@ import {
   TableCell,
   TableHead,
   TablePagination,
-  TableRow
-} from '@mui/material';
-import { useState } from 'react';
+  TableRow,
+} from "@mui/material";
+import { useState } from "react";
 
 import * as Util from 'app/functions/Util';
 
 const StyledTable = styled(Table)(() => ({
-  whiteSpace: 'pre',
-  '& thead': {
-    '& tr': { '& th': { paddingLeft: 0, paddingRight: 0 } }
+  whiteSpace: "pre",
+  "& thead": {
+    "& tr": { "& th": { paddingLeft: 0, paddingRight: 0 } },
   },
-  '& tbody': {
-    '& tr': { '& td': { paddingLeft: 0, textTransform: 'capitalize' } }
-  }
+  "& tbody": {
+    "& tr": { "& td": { paddingLeft: 0, textTransform: "capitalize" } },
+  },
 }));
 
 const ListVente = (props) => {
@@ -51,11 +51,10 @@ const ListVente = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {site.venteOfMonth
-            ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+          {site.venteOfMonth?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((vente, index) => (
               <TableRow key={index}>
-                <TableCell align="left">#{index + 1}</TableCell>
+                <TableCell align="left">#{index+1}</TableCell>
                 <TableCell align="left">{vente.vendeur}</TableCell>
                 <TableCell align="center">{vente.acheteur}</TableCell>
                 <TableCell align="center">{vente.taux_comission}%</TableCell>
@@ -71,12 +70,12 @@ const ListVente = (props) => {
         page={page}
         component="div"
         rowsPerPage={rowsPerPage}
-        count={4}
+        count={Util.getCount(site.venteOfMonth)}
         onPageChange={handleChangePage}
         rowsPerPageOptions={[5, 10, 25]}
         onRowsPerPageChange={handleChangeRowsPerPage}
-        nextIconButtonProps={{ 'aria-label': 'Next Page' }}
-        backIconButtonProps={{ 'aria-label': 'Previous Page' }}
+        nextIconButtonProps={{ "aria-label": "Next Page" }}
+        backIconButtonProps={{ "aria-label": "Previous Page" }}
       />
     </Box>
   );

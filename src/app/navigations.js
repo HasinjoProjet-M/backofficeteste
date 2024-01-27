@@ -24,7 +24,7 @@ export const navigations = [
 
   {
     name: 'Public',
-    icon: 'event_note',
+    icon: 'public',
     children: [{ name: 'Annonce', iconText: 'A', path: '/public/annonces' }]
   }
 ];

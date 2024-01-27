@@ -36,7 +36,7 @@ const StatVente = ({ height, color = [], site }) => {
   const theme = useTheme();
 
   const option = {
-    grid: { top: '10%', bottom: '10%', left: '5%', right: '5%' },
+    grid: { top: '10%', bottom: '10%', left: '10%', right: '5%' },
     legend: {
       itemGap: 20,
       icon: 'circle',
@@ -88,7 +88,7 @@ const StatVente = ({ height, color = [], site }) => {
         </Select>
       </CardHeader>
 
-      <Box overflow="auto" sx={{ pl: '20px' }}>
+      <Box overflow="auto">
         <ReactEcharts style={{ height: height, width: '100%' }} option={{ ...option, color: [...color] }} />
       </Box>
     </Card>

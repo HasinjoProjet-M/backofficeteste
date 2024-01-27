@@ -44,6 +44,14 @@ export function getStatAnnonceDataOfMonth(statAnnonce, status) {
   return 0;
 }
 
+export function getCount(venteOfMonth) {
+  if (venteOfMonth?.length != undefined) {
+    return venteOfMonth.length;
+  }
+
+  return 0;
+}
+
 export function getStatVenteDataOfYear(statVente, year) {
   const data = new Array(12).fill(null).map((_, index) => {
     const monthData = statVente?.find((item) => item.annee === year && item.mois === index + 1);

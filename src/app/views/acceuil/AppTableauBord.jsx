@@ -88,7 +88,7 @@ const Analytics = () => {
               <Grid item xs={12} md={4} key={2}>
                 <Card sx={{ p: 2, ml: 2 }}>
                   <Title>Les annonces</Title>
-                  <SubTitle>(Ce mois-ci)</SubTitle>
+                  <SubTitle>(Ce moi-ci)</SubTitle>
 
                   <DoughnutChart
                     height="242px"
@@ -100,7 +100,7 @@ const Analytics = () => {
             </Grid>
 
             <Grid item lg={12} md={12} sm={12} xs={12}>
-              <SimpleCard className="mb-0" title="#Top vente">
+              <SimpleCard className="mb-0" title="#Top vente du mois">
                 <ListVente site={site} />
               </SimpleCard>
             </Grid>

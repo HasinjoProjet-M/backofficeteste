@@ -3,7 +3,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logoutUser } from '../../../deconnection';
 
-const options = ['Modifier', 'Supprimer'];
 const ITEM_HEIGHT = 40;
 const MenuCarburant = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -66,15 +65,12 @@ const MenuCarburant = (props) => {
         onClose={handleClose}
         PaperProps={{ style: { maxHeight: ITEM_HEIGHT * 4.5, width: 200 } }}
       >
-        {options.map((option) => (
-          <MenuItem
-            key={option}
-            selected={option === 'Pyxis'}
-            onClick={() => handleMenuItemClick(option)}
-          >
-            {option}
-          </MenuItem>
-        ))}
+        <MenuItem key={0} onClick={() => handleMenuItemClick('Modifier')}>
+          <Icon>border_color</Icon>&nbsp;&nbsp;Modifer
+        </MenuItem>
+        <MenuItem key={2} onClick={() => handleMenuItemClick('Supprimer')}>
+          <Icon>delete</Icon>&nbsp;&nbsp;Supprimer
+        </MenuItem>
       </Menu>
     </Box>
   );
