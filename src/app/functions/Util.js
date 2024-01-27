@@ -45,7 +45,7 @@ export function getStatAnnonceDataOfMonth(statAnnonce, status) {
 }
 
 export function getCount(venteOfMonth) {
-  if (venteOfMonth?.length != undefined) {
+  if (venteOfMonth?.length !== undefined) {
     return venteOfMonth.length;
   }
 
