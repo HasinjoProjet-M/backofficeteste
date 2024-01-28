@@ -13,7 +13,7 @@ const TextField = styled(TextValidator)(() => ({
 
 const FormMarque = ({ selectedMarque, selectedMarqueId, onFormSubmitSuccess }) => {
   const [marque, setMarque] = useState(selectedMarque || '');
-  const [loading, setLoading] = useState(false); // Nouvel état pour la charge
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (event) => {
@@ -23,9 +23,9 @@ const FormMarque = ({ selectedMarque, selectedMarqueId, onFormSubmitSuccess }) =
 
   const handleSubmit = async (event) => {
     try {
-      setLoading(true); // Définir la charge sur true au début de la soumission du formulaire
+      setLoading(true);
 
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
 
       if (selectedMarque) {
         const headers = new Headers();

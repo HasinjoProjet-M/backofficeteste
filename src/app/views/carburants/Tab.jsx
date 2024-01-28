@@ -28,13 +28,13 @@ const Tab = (props) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(4);
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true); // Ajoutez l'état de chargement
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem('token');
+        const token = sessionStorage.getItem('token');
         const headers = new Headers();
         headers.append('Authorization', `Bearer ${token}`);
         const response = await fetch(

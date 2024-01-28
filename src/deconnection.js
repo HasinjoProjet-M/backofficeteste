@@ -1,6 +1,6 @@
 export const logoutUser = async () => {
   try {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const headers = new Headers();
     headers.append('Authorization', `Bearer ${token}`);
 
@@ -12,7 +12,7 @@ export const logoutUser = async () => {
     const data = await response.json();
 
     if (response.ok) {
-      localStorage.removeItem('token');
+      sessionStorage.removeItem('token');
       return { success: true };
     } else {
       return { success: false, message: data.message };

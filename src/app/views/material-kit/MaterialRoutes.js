@@ -13,7 +13,8 @@ const AppListeModels = Loadable(lazy(() => import('app/views/marques/listeModels
 const AppDetailAnnonce = Loadable(lazy(() => import('../annonce/detail/AppDetailAnnonce')));
 /**** carburant  */
 const AppCarburants = Loadable(lazy(() => import('app/views/carburants/Appcarburants')));
-
+/**** Comission ****/
+const AppCommission = Loadable(lazy(() => import('app/views/comission/AppCommission')));
 const materialRoutes = [
   {
     path: 'categories',
@@ -32,6 +33,10 @@ const materialRoutes = [
   {
     path: 'carburants',
     element: <AppCarburants />
+  },
+  {
+    path: 'comission',
+    element: <AppCommission />
   }
 ];
 

@@ -22,9 +22,9 @@ const FormCarburant = ({ selectedCarburant, selectedCarburantId, onFormSubmitSuc
   };
 
   const handleSubmit = async (event) => {
-    setLoading(true); // Déclenchez le chargement au début de la soumission du formulaire
+    setLoading(true);
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       if (selectedCarburant) {
         const headers = new Headers();
         headers.append('Authorization', `Bearer ${token}`);

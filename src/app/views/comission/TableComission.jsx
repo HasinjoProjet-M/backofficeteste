@@ -13,8 +13,6 @@ import { logoutUser } from '../../../deconnection';
 import { useNavigate } from 'react-router-dom';
 import LoadingIndicator from 'app/components/LoadingIndicator';
 
-import MenuCategorie from './MenuCategorie';
-
 const StyledTable = styled(Table)(() => ({
   whiteSpace: 'pre',
   '& thead': {
@@ -25,19 +23,12 @@ const StyledTable = styled(Table)(() => ({
   }
 }));
 
-const TableCategorie = ({
-  onEditCategory,
-  selectedCategory,
-  selectedCategoryId,
-  refreshTable,
-  onFormSubmitSuccess
-}) => {
+const TableComission = ({ refreshTable }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(4);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -45,7 +36,7 @@ const TableCategorie = ({
         const token = sessionStorage.getItem('token');
         const headers = new Headers();
         headers.append('Authorization', `Bearer ${token}`);
-        const response = await fetch('https://vehiculeback.onrender.com/api/v1/categories', {
+        const response = await fetch('https://vehiculeback.onrender.com/api/admin/v1/comissions', {
           method: 'GET',
           headers: headers
         });
@@ -81,32 +72,21 @@ const TableCategorie = ({
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
-  const handleEditClick = (categoryName, categoryId) => {
-    onEditCategory(categoryName, categoryId);
-  };
-
   return (
     <Box width="100%" overflow="auto">
       <LoadingIndicator loading={loading}>
         <StyledTable>
           <TableHead>
             <TableRow>
-              <TableCell align="left">Name</TableCell>
-              <TableCell align="center">Option</TableCell>
+              <TableCell align="left">Taux en % </TableCell>
+              <TableCell align="center">Date</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((cat, index) => (
               <TableRow key={index}>
-                <TableCell align="left">{cat.categorie}</TableCell>
-                <TableCell align="center">
-                  <MenuCategorie
-                    id_categorie={cat.idCategorie}
-                    onFormSubmitSuccess={onFormSubmitSuccess}
-                    onEditClick={() => handleEditClick(cat.categorie, cat.idCategorie)}
-                  />
-                </TableCell>
+                <TableCell align="left">{cat.taux}</TableCell>
+                <TableCell align="center">{cat.datecomission}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -129,4 +109,4 @@ const TableCategorie = ({
   );
 };
 
-export default TableCategorie;
+export default TableComission;

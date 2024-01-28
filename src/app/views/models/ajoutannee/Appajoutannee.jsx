@@ -28,7 +28,7 @@ const Appajoutannee = ({ model, modelId, onClose }) => {
   };
   const handleSubmit = async (event) => {
     const value = JSON.stringify({ modelId: modelId, annee: annee });
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const headers = new Headers();
     headers.append('Authorization', `Bearer ${token}`);
     headers.append('Content-Type', 'application/json');

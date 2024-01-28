@@ -15,6 +15,8 @@ import MaxHeightMenu from './MaxHeightMenu';
 import * as Util from 'app/functions/Util';
 import Api from 'app/functions/Api';
 
+import LoadingIndicator from 'app/components/LoadingIndicator';
+
 const StyledTable = styled(Table)(({ theme }) => ({
   whiteSpace: 'pre',
   '& thead': {
@@ -28,6 +30,8 @@ const StyledTable = styled(Table)(({ theme }) => ({
 const SimpleTable = () => {
   const [annonces, setAnnonces] = useState([]);
   const [filtreStatut, setFiltreStatut] = useState('all');
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchAnnonce = async () => {
       const response = await Api.fetch(
@@ -37,16 +41,16 @@ const SimpleTable = () => {
           'Content-Type': 'application/json'
         }
       );
-
-      setAnnonces(response.data); // Assurez-vous que la structure des données est correcte
+      setAnnonces(response.data);
+      setLoading(false);
     };
 
-    fetchAnnonce(); // Appel de la fonction asynchrone
+    fetchAnnonce();
   }, []);
 
   const annoncesFiltrees = annonces.filter((annonce) => {
     if (filtreStatut === 'all') {
-      return true; // Afficher toutes les annonces si le filtre est "Tous"
+      return true;
     } else if (filtreStatut === 'valid') {
       return annonce.statut === 2;
     } else {
@@ -67,33 +71,36 @@ const SimpleTable = () => {
         <MenuItem value="invalid">Non valide</MenuItem>
       </Select>
       <Box width="100%" overflow="auto">
-        <StyledTable>
-          <TableHead>
-            <TableRow>
-              <TableCell align="left">Auteur</TableCell>
-              <TableCell align="center">Date</TableCell>
-              <TableCell align="center">Voiture</TableCell>
-              <TableCell align="center">Prix</TableCell>
-              <TableCell align="center">Statut</TableCell>
-              <TableCell align="right">Autre</TableCell>
-            </TableRow>
-          </TableHead>
-
-          <TableBody>
-            {annoncesFiltrees.map((annonce, index) => (
-              <TableRow key={index}>
-                <TableCell align="left">{annonce.auteur}</TableCell>
-                <TableCell align="center">{Util.formatDate(annonce.date_annonce)}</TableCell>
-                <TableCell align="center">{annonce.detailvoiture.marque}</TableCell>
-                <TableCell align="center">Ar {Util.formatNumber(annonce.prix_vente)}</TableCell>
-                <TableCell align="center">{Util.getStatus(annonce.statut)}</TableCell>
-                <TableCell align="right">
-                  <MaxHeightMenu annonce_id={annonce.annonce_id} />
-                </TableCell>
+        {loading ? (
+          <LoadingIndicator loading={loading} />
+        ) : (
+          <StyledTable>
+            <TableHead>
+              <TableRow>
+                <TableCell align="left">Auteur</TableCell>
+                <TableCell align="center">Date</TableCell>
+                <TableCell align="center">Voiture</TableCell>
+                <TableCell align="center">Prix</TableCell>
+                <TableCell align="center">Statut</TableCell>
+                <TableCell align="right">Autre</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </StyledTable>
+            </TableHead>
+            <TableBody>
+              {annoncesFiltrees.map((annonce, index) => (
+                <TableRow key={index}>
+                  <TableCell align="left">{annonce.auteur}</TableCell>
+                  <TableCell align="center">{Util.formatDate(annonce.date_annonce)}</TableCell>
+                  <TableCell align="center">{annonce.detailvoiture.marque}</TableCell>
+                  <TableCell align="center">Ar {Util.formatNumber(annonce.prix_vente)}</TableCell>
+                  <TableCell align="center">{Util.getStatus(annonce.statut)}</TableCell>
+                  <TableCell align="right">
+                    <MaxHeightMenu annonce_id={annonce.annonce_id} />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </StyledTable>
+        )}
       </Box>
     </div>
   );

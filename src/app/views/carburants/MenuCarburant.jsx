@@ -20,7 +20,7 @@ const MenuCarburant = (props) => {
     if (option === 'Modifier') {
       props.onEditClick();
     } else {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const headers = new Headers();
       headers.append('Authorization', `Bearer ${token}`);
       const response = await fetch(

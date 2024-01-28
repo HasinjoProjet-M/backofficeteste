@@ -50,7 +50,7 @@ const TableMarque = ({
         if (categorieId !== null) {
           url = `https://vehiculeback.onrender.com/api/v1/categories/v1/marques/${categorieId}`;
         }
-        const token = localStorage.getItem('token');
+        const token = sessionStorage.getItem('token');
         const headers = new Headers();
         headers.append('Authorization', `Bearer ${token}`);
         headers.append('Content-Type', 'application/json');

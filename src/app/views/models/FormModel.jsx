@@ -29,7 +29,7 @@ const FormModel = () => {
         const responseMaques = await fetch('https://vehiculeback.onrender.com/api/v1/marques', {
           method: 'GET',
           headers: new Headers({
-            Authorization: `Bearer ${localStorage.getItem('token')}`
+            Authorization: `Bearer ${sessionStorage.getItem('token')}`
           })
         });
         const jsonDataMaques = await responseMaques.json();
@@ -53,7 +53,7 @@ const FormModel = () => {
           {
             method: 'GET',
             headers: new Headers({
-              Authorization: `Bearer ${localStorage.getItem('token')}`
+              Authorization: `Bearer ${sessionStorage.getItem('token')}`
             })
           }
         );
@@ -96,7 +96,7 @@ const FormModel = () => {
       model: model
     });
     const headers = new Headers();
-    headers.append('Authorization', `Bearer ${localStorage.getItem('token')}`);
+    headers.append('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
     headers.append('Content-Type', 'application/json');
 
     const response = await fetch(`https://vehiculeback.onrender.com/api/v1/models`, {

@@ -3,7 +3,7 @@ import { logoutUser } from '../../deconnection';
 class Api {
   static async fetch(url, method = 'GET', headers = {}) {
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
 
       if (token == null) {
         window.location.href = '/session/signin';

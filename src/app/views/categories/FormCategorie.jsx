@@ -22,8 +22,8 @@ const FormCategorie = ({ selectedCategory, selectedCategoryId, onFormSubmitSucce
   };
 
   const handleSubmit = async (event) => {
-    setLoading(true); // Démarrez le chargement
-    const token = localStorage.getItem('token');
+    setLoading(true);
+    const token = sessionStorage.getItem('token');
     if (selectedCategory) {
       try {
         const headers = new Headers();

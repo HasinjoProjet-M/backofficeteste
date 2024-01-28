@@ -62,7 +62,9 @@ const SimpleTable = () => {
                   <TableCell align="left">{user.id_utilisateur}</TableCell>
                   <TableCell align="center">{user.nom}</TableCell>
                   <TableCell align="center">{user.prenom}</TableCell>
-                  <TableCell align="center">{user.genre}</TableCell>
+                  <TableCell align="center">
+                    {user.genre === 1 ? 'Homme' : user.genre === 2 ? 'Femme' : 'Autre'}
+                  </TableCell>
                   <TableCell align="center">{Util.formatDate(user.date_naissance)}</TableCell>
                   <TableCell align="center">{user.nb_annonce}</TableCell>
                   <TableCell align="center">{user.nb_achat}</TableCell>

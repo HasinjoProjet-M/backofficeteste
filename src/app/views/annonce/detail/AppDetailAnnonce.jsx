@@ -7,6 +7,7 @@ import DetailTable from './DetailTable';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Api from 'app/functions/Api';
+import LoadingIndicator from 'app/components/LoadingIndicator';
 
 const Container = styled('div')(({ theme }) => ({
   margin: '30px',
@@ -21,10 +22,8 @@ const AppDetailAnnonce = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const annonce_id = searchParams.get(`annonce_id`);
-
+  const [loading, setLoading] = useState(true);
   const [annonce, setAnnonce] = useState({});
-
-  // console.log("Id: " + annonce_id);
 
   useEffect(() => {
     const fetchAnnonce = async () => {
@@ -36,35 +35,45 @@ const AppDetailAnnonce = () => {
         }
       );
 
-      setAnnonce(response.data); // Assurez-vous que la structure des données est correcte
+      setAnnonce(response.data);
+      setLoading(false);
     };
 
-    fetchAnnonce(); // Appel de la fonction asynchrone
-  }, [annonce_id]); // Déclencher l'effet à chaque changement de l'ID
+    fetchAnnonce();
+  }, [annonce_id]);
 
   return (
-    <Container>
-      <Box className="breadcrumb">
-        <Breadcrumb
-          routeSegments={[{ name: 'Material', path: '/material' }, { name: 'Detail Annonce' }]}
-        />
-      </Box>
+    <>
+      {loading ? (
+        <LoadingIndicator loading={loading} />
+      ) : (
+        <Container>
+          <Box className="breadcrumb">
+            <Breadcrumb
+              routeSegments={[
+                { name: 'Detail annonce', path: '/annonces' },
+                { name: 'Detail Annonce' }
+              ]}
+            />
+          </Box>
 
-      <Stack spacing={3}>
-        <BasicDetailCards annonce={annonce} />
-      </Stack>
+          <Stack spacing={3}>
+            <BasicDetailCards annonce={annonce} />
+          </Stack>
 
-      <Stack spacing={3}>
-        <SimpleCard title="basic">
-          <DetailTable annonce={annonce} />
-        </SimpleCard>
-      </Stack>
-      <br />
+          <Stack spacing={3}>
+            <SimpleCard title="basic">
+              <DetailTable annonce={annonce} />
+            </SimpleCard>
+          </Stack>
+          <br />
 
-      <Stack spacing={3} className="">
-        <DetailSupp annonce={annonce} />
-      </Stack>
-    </Container>
+          <Stack spacing={3} className="">
+            <DetailSupp annonce={annonce} />
+          </Stack>
+        </Container>
+      )}
+    </>
   );
 };
 

@@ -49,7 +49,7 @@ const JwtLogin = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  if (localStorage.getItem('token') != null) {
+  if (sessionStorage.getItem('token') != null) {
     window.location.href = '/accueil';
   }
 
@@ -65,7 +65,7 @@ const JwtLogin = () => {
       });
       const responseData = await response.json();
       if (response.ok) {
-        localStorage.setItem('token', responseData.data);
+        sessionStorage.setItem('token', responseData.data);
         navigate('/accueil');
       } else {
         setLoading(false);

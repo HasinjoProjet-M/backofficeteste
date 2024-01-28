@@ -17,7 +17,7 @@ const AppCategories = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedCategoryId, setSelectedCategoryId] = useState('');
   const [refreshTable, setRefreshTable] = useState(false);
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
   if (token === null) {
     window.location.href = '/session/signin';
   }

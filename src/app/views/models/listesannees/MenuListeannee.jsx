@@ -20,7 +20,7 @@ const MenuListeannee = (props) => {
   };
 
   const handleMenuItemClick = async (option) => {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const headers = new Headers();
     headers.append('Authorization', `Bearer ${token}`);
     const response = await fetch(

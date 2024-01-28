@@ -25,7 +25,7 @@ const MenuCategorie = ({ id_categorie, onEditClick, onFormSubmitSuccess }) => {
       const id_categorieParam = id_categorie ? `?categorie_id=${id_categorie}` : '';
       navigate(`/marques${id_categorieParam}`);
     } else {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const headers = new Headers();
       headers.append('Authorization', `Bearer ${token}`);
       const response = await fetch(

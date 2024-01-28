@@ -27,7 +27,7 @@ const MenuMarque = ({ id_marque, onEditClick, onFormSubmitSuccess }) => {
       const id_marqueParam = id_marque ? `?marque_id=${id_marque}` : '';
       navigate(`/listesmodels${id_marqueParam}`);
     } else {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const headers = new Headers();
       headers.append('Authorization', `Bearer ${token}`);
       const response = await fetch(

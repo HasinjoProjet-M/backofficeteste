@@ -43,7 +43,7 @@ const TableListeannee = ({ modelId }) => {
         {
           method: 'GET',
           headers: new Headers({
-            Authorization: `Bearer ${localStorage.getItem('token')}`
+            Authorization: `Bearer ${sessionStorage.getItem('token')}`
           })
         }
       );
