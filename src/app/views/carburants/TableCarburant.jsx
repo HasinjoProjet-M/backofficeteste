@@ -41,7 +41,7 @@ const TableCarburant = ({
         const headers = new Headers();
         headers.append('Authorization', `Bearer ${token}`);
         const response = await fetch(
-          'https://vehiculeback.onrender.com/api/v1/models/v1/carburants',
+          'https://wsclouditu-production.up.railway.app/api/v1/models/v1/carburants',
           {
             method: 'GET',
             headers: headers

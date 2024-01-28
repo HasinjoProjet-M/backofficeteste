@@ -22,9 +22,13 @@ const SimpleTable = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await Api.fetch('https://vehiculeback.onrender.com/api/auth', 'GET', {
-          'Content-Type': 'application/json'
-        });
+        const response = await Api.fetch(
+          'https://wsclouditu-production.up.railway.app/api/auth',
+          'GET',
+          {
+            'Content-Type': 'application/json'
+          }
+        );
         setUsers(response.data);
         setLoading(false);
       } catch (error) {

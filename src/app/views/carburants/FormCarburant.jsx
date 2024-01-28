@@ -30,7 +30,7 @@ const FormCarburant = ({ selectedCarburant, selectedCarburantId, onFormSubmitSuc
         headers.append('Authorization', `Bearer ${token}`);
         headers.append('Content-Type', 'application/json');
         const response = await fetch(
-          `https://vehiculeback.onrender.com/api/v1/models/v1/carburants/${selectedCarburantId}`,
+          `https://wsclouditu-production.up.railway.app/api/v1/models/v1/carburants/${selectedCarburantId}`,
           {
             method: 'PUT',
             headers: headers,
@@ -56,7 +56,7 @@ const FormCarburant = ({ selectedCarburant, selectedCarburantId, onFormSubmitSuc
         headers.append('Authorization', `Bearer ${token}`);
         headers.append('Content-Type', 'application/json');
         const response = await fetch(
-          'https://vehiculeback.onrender.com/api/v1/models/v1/carburants',
+          'https://wsclouditu-production.up.railway.app/api/v1/models/v1/carburants',
           {
             method: 'POST',
             headers: headers,

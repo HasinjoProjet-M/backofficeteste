@@ -27,12 +27,15 @@ const FormListModels = () => {
     const fetchData = async () => {
       try {
         //tabMaques
-        const responseMaques = await fetch('https://vehiculeback.onrender.com/api/v1/marques', {
-          method: 'GET',
-          headers: new Headers({
-            Authorization: `Bearer ${sessionStorage.getItem('token')}`
-          })
-        });
+        const responseMaques = await fetch(
+          'https://wsclouditu-production.up.railway.app/api/v1/marques',
+          {
+            method: 'GET',
+            headers: new Headers({
+              Authorization: `Bearer ${sessionStorage.getItem('token')}`
+            })
+          }
+        );
         const jsonDataMaques = await responseMaques.json();
         if (jsonDataMaques.status_code === '200') {
           console.log(jsonDataMaques.data);
@@ -51,7 +54,7 @@ const FormListModels = () => {
 
         // tabCategories
         const responseCategories = await fetch(
-          'https://vehiculeback.onrender.com/api/v1/categories',
+          'https://wsclouditu-production.up.railway.app/api/v1/categories',
           {
             method: 'GET',
             headers: new Headers({
@@ -94,7 +97,7 @@ const FormListModels = () => {
   };
   const addtableresulat = async () => {
     const responseMaques = await fetch(
-      `https://vehiculeback.onrender.com/api/v1/models/v1/details?marque_id=${marque_id}&categorie_id=${categorie_id}`,
+      `https://wsclouditu-production.up.railway.app/api/v1/models/v1/details?marque_id=${marque_id}&categorie_id=${categorie_id}`,
       {
         method: 'GET',
         headers: new Headers({

@@ -35,7 +35,7 @@ const SimpleTable = () => {
   useEffect(() => {
     const fetchAnnonce = async () => {
       const response = await Api.fetch(
-        'https://vehiculeback.onrender.com/api/v1/annonces/invendu',
+        'https://wsclouditu-production.up.railway.app/api/v1/annonces/invendu',
         'GET',
         {
           'Content-Type': 'application/json'

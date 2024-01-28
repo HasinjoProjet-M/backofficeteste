@@ -59,10 +59,13 @@ const JwtLogin = () => {
     data.append('email', values.email);
     data.append('mdp', values.password);
     try {
-      const response = await fetch('https://vehiculeback.onrender.com/api/auth/v1/login/admin', {
-        method: 'POST',
-        body: data
-      });
+      const response = await fetch(
+        'https://wsclouditu-production.up.railway.app/api/auth/v1/login/admin',
+        {
+          method: 'POST',
+          body: data
+        }
+      );
       const responseData = await response.json();
       if (response.ok) {
         sessionStorage.setItem('token', responseData.data);

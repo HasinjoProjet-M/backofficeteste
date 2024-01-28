@@ -31,7 +31,7 @@ const FormCategorie = ({ selectedCategory, selectedCategoryId, onFormSubmitSucce
         headers.append('Content-Type', 'application/json');
 
         const response = await fetch(
-          `https://vehiculeback.onrender.com/api/v1/categories/${selectedCategoryId}`,
+          `https://wsclouditu-production.up.railway.app/api/v1/categories/${selectedCategoryId}`,
           {
             method: 'PUT',
             headers: headers,
@@ -61,11 +61,14 @@ const FormCategorie = ({ selectedCategory, selectedCategoryId, onFormSubmitSucce
         headers.append('Authorization', `Bearer ${token}`);
         headers.append('Content-Type', 'application/json');
 
-        const response = await fetch('https://vehiculeback.onrender.com/api/v1/categories', {
-          method: 'POST',
-          headers: headers,
-          body: JSON.stringify({ categorie: categorie })
-        });
+        const response = await fetch(
+          'https://wsclouditu-production.up.railway.app/api/v1/categories',
+          {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify({ categorie: categorie })
+          }
+        );
         const jsonData = await response.json();
         if (jsonData.status_code === '401') {
           alert(jsonData.message);

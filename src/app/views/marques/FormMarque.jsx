@@ -33,7 +33,7 @@ const FormMarque = ({ selectedMarque, selectedMarqueId, onFormSubmitSuccess }) =
         headers.append('Content-Type', 'application/json');
 
         const response = await fetch(
-          `https://vehiculeback.onrender.com/api/v1/marques/${selectedMarqueId}`,
+          `https://wsclouditu-production.up.railway.app/api/v1/marques/${selectedMarqueId}`,
           {
             method: 'PUT',
             headers: headers,
@@ -63,11 +63,14 @@ const FormMarque = ({ selectedMarque, selectedMarqueId, onFormSubmitSuccess }) =
         headers.append('Authorization', `Bearer ${token}`);
         headers.append('Content-Type', 'application/json');
 
-        const response = await fetch('https://vehiculeback.onrender.com/api/v1/marques', {
-          method: 'POST',
-          headers: headers,
-          body: JSON.stringify({ marque: marque })
-        });
+        const response = await fetch(
+          'https://wsclouditu-production.up.railway.app/api/v1/marques',
+          {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify({ marque: marque })
+          }
+        );
 
         const jsonData = await response.json();
 

@@ -29,7 +29,7 @@ const MenuCategorie = ({ id_categorie, onEditClick, onFormSubmitSuccess }) => {
       const headers = new Headers();
       headers.append('Authorization', `Bearer ${token}`);
       const response = await fetch(
-        `https://vehiculeback.onrender.com/api/v1/categories/${id_categorie}`,
+        `https://wsclouditu-production.up.railway.app/api/v1/categories/${id_categorie}`,
         {
           method: 'DELETE',
           headers: headers

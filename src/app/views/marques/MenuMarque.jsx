@@ -31,7 +31,7 @@ const MenuMarque = ({ id_marque, onEditClick, onFormSubmitSuccess }) => {
       const headers = new Headers();
       headers.append('Authorization', `Bearer ${token}`);
       const response = await fetch(
-        `https://vehiculeback.onrender.com/api/v1/marques/${id_marque}`,
+        `https://wsclouditu-production.up.railway.app/api/v1/marques/${id_marque}`,
         {
           method: 'DELETE',
           headers: headers

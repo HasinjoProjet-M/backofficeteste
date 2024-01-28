@@ -24,7 +24,7 @@ const MenuListeannee = (props) => {
     const headers = new Headers();
     headers.append('Authorization', `Bearer ${token}`);
     const response = await fetch(
-      `https://vehiculeback.onrender.com/api/v1/models/v1/annees/${props.idanneesortie}`,
+      `https://wsclouditu-production.up.railway.app/api/v1/models/v1/annees/${props.idanneesortie}`,
       {
         method: 'DELETE',
         headers: headers

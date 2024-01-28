@@ -26,12 +26,15 @@ const FormModel = () => {
     const fetchData = async () => {
       try {
         //tabMaques
-        const responseMaques = await fetch('https://vehiculeback.onrender.com/api/v1/marques', {
-          method: 'GET',
-          headers: new Headers({
-            Authorization: `Bearer ${sessionStorage.getItem('token')}`
-          })
-        });
+        const responseMaques = await fetch(
+          'https://wsclouditu-production.up.railway.app/api/v1/marques',
+          {
+            method: 'GET',
+            headers: new Headers({
+              Authorization: `Bearer ${sessionStorage.getItem('token')}`
+            })
+          }
+        );
         const jsonDataMaques = await responseMaques.json();
         if (jsonDataMaques.status_code === '200') {
           setTabMarques(jsonDataMaques.data);
@@ -49,7 +52,7 @@ const FormModel = () => {
 
         // tabCategories
         const responseCategories = await fetch(
-          'https://vehiculeback.onrender.com/api/v1/categories',
+          'https://wsclouditu-production.up.railway.app/api/v1/categories',
           {
             method: 'GET',
             headers: new Headers({
@@ -99,7 +102,7 @@ const FormModel = () => {
     headers.append('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
     headers.append('Content-Type', 'application/json');
 
-    const response = await fetch(`https://vehiculeback.onrender.com/api/v1/models`, {
+    const response = await fetch(`https://wsclouditu-production.up.railway.app/api/v1/models`, {
       method: 'POST',
       headers: headers,
       body: value

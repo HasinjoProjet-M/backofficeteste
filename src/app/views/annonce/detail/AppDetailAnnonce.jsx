@@ -28,7 +28,7 @@ const AppDetailAnnonce = () => {
   useEffect(() => {
     const fetchAnnonce = async () => {
       const response = await Api.fetch(
-        `https://vehiculeback.onrender.com/api/v1/annonces/${annonce_id}`,
+        `https://wsclouditu-production.up.railway.app/api/v1/annonces/${annonce_id}`,
         'GET',
         {
           'Content-Type': 'application/json'

@@ -33,11 +33,14 @@ const FormComission = ({ onFormSubmitSuccess }) => {
       headers.append('Authorization', `Bearer ${token}`);
       headers.append('Content-Type', 'application/json');
 
-      const response = await fetch('https://vehiculeback.onrender.com/api/admin/v1/comissions', {
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify({ taux: comission, datecomission: date })
-      });
+      const response = await fetch(
+        'https://wsclouditu-production.up.railway.app/api/admin/v1/comissions',
+        {
+          method: 'POST',
+          headers: headers,
+          body: JSON.stringify({ taux: comission, datecomission: date })
+        }
+      );
       const jsonData = await response.json();
       if (jsonData.status_code === '401') {
         alert(jsonData.message);

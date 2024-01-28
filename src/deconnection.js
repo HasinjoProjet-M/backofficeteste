@@ -4,10 +4,13 @@ export const logoutUser = async () => {
     const headers = new Headers();
     headers.append('Authorization', `Bearer ${token}`);
 
-    const response = await fetch('https://vehiculeback.onrender.com/api/auth/v1/logout', {
-      method: 'Post',
-      headers: headers
-    });
+    const response = await fetch(
+      'https://wsclouditu-production.up.railway.app/api/auth/v1/logout',
+      {
+        method: 'Post',
+        headers: headers
+      }
+    );
 
     const data = await response.json();
 

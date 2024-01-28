@@ -39,7 +39,7 @@ const TableListeannee = ({ modelId }) => {
   useEffect(() => {
     const fetchData = async () => {
       const responseMaques = await fetch(
-        `https://vehiculeback.onrender.com/api/v1/models/v1/details/${modelId}`,
+        `https://wsclouditu-production.up.railway.app/api/v1/models/v1/details/${modelId}`,
         {
           method: 'GET',
           headers: new Headers({

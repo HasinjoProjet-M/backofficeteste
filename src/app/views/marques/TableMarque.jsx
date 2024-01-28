@@ -46,9 +46,9 @@ const TableMarque = ({
       try {
         setLoading(true); // Commencer le chargement
 
-        var url = 'https://vehiculeback.onrender.com/api/v1/marques';
+        var url = 'https://wsclouditu-production.up.railway.app/api/v1/marques';
         if (categorieId !== null) {
-          url = `https://vehiculeback.onrender.com/api/v1/categories/v1/marques/${categorieId}`;
+          url = `https://wsclouditu-production.up.railway.app/api/v1/categories/v1/marques/${categorieId}`;
         }
         const token = sessionStorage.getItem('token');
         const headers = new Headers();

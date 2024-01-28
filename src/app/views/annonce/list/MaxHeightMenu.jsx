@@ -28,7 +28,7 @@ function MaxHeightMenu({ annonce_id }) {
   async function validate() {
     try {
       await Api.fetch(
-        `https://vehiculeback.onrender.com/api/v1/annonces/autoriser/${annonce_id}`,
+        `https://wsclouditu-production.up.railway.app/api/v1/annonces/autoriser/${annonce_id}`,
         'PUT',
         {
           'Content-Type': 'application/json'

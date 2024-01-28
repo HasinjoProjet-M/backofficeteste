@@ -32,11 +32,14 @@ const Appajoutannee = ({ model, modelId, onClose }) => {
     const headers = new Headers();
     headers.append('Authorization', `Bearer ${token}`);
     headers.append('Content-Type', 'application/json');
-    const response = await fetch(`https://vehiculeback.onrender.com/api/v1/models/v1/annees`, {
-      method: 'POST',
-      headers: headers,
-      body: value
-    });
+    const response = await fetch(
+      `https://wsclouditu-production.up.railway.app/api/v1/models/v1/annees`,
+      {
+        method: 'POST',
+        headers: headers,
+        body: value
+      }
+    );
     const jsonData = await response.json();
     if (jsonData.status_code === '401') {
       alert(jsonData.message);

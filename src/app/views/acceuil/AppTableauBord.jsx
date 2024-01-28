@@ -36,7 +36,7 @@ const Analytics = () => {
     const fetchStat = async () => {
       try {
         const response = await Api.fetch(
-          'https://vehiculeback.onrender.com/api/v1/statistique',
+          'https://wsclouditu-production.up.railway.app/api/v1/statistique',
           'GET',
           {
             'Content-Type': 'application/json'

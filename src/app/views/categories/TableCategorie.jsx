@@ -45,10 +45,13 @@ const TableCategorie = ({
         const token = sessionStorage.getItem('token');
         const headers = new Headers();
         headers.append('Authorization', `Bearer ${token}`);
-        const response = await fetch('https://vehiculeback.onrender.com/api/v1/categories', {
-          method: 'GET',
-          headers: headers
-        });
+        const response = await fetch(
+          'https://wsclouditu-production.up.railway.app/api/v1/categories',
+          {
+            method: 'GET',
+            headers: headers
+          }
+        );
         const jsonData = await response.json();
         if (jsonData.status_code === '200') {
           setData(jsonData.data);

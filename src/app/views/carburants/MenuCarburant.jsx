@@ -24,7 +24,7 @@ const MenuCarburant = (props) => {
       const headers = new Headers();
       headers.append('Authorization', `Bearer ${token}`);
       const response = await fetch(
-        `https://vehiculeback.onrender.com/api/v1/models/v1/carburants/${props.idCarburat}`,
+        `https://wsclouditu-production.up.railway.app/api/v1/models/v1/carburants/${props.idCarburat}`,
         {
           method: 'DELETE',
           headers: headers
