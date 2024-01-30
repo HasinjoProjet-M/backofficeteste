@@ -15,7 +15,9 @@ const AppTable = () => {
   return (
     <Container>
       <Box className="breadcrumb">
-        <Breadcrumb routeSegments={[{ name: 'Material', path: '/material' }, { name: 'Table' }]} />
+        <Breadcrumb
+          routeSegments={[{ name: 'Annonce', path: '/public/annonces' }, { name: 'Liste annonce' }]}
+        />
       </Box>
 
       <SimpleCard title="Les annonces">

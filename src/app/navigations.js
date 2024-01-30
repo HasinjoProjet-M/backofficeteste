@@ -5,7 +5,7 @@ export const navigations = [
     path: '/accueil'
   },
   { label: 'Gestion', type: 'label' },
-  { name: 'Comission', path: '/comission', icon: 'account_balance' },
+  { name: 'Commission', path: '/comission', icon: 'account_balance' },
   { name: 'Categorie', path: '/categories', icon: 'dashboard' },
   {
     name: 'Marque',

@@ -26,14 +26,14 @@ const AppCommission = () => {
     <Container>
       <Box className="breadcrumb">
         <Breadcrumb
-          routeSegments={[{ name: 'Comission', path: '/comission' }, { name: 'Comission' }]}
+          routeSegments={[{ name: 'Commission', path: '/comission' }, { name: 'Commission' }]}
         />
       </Box>
-      <SimpleCard title="Ajoutée de nouvelle comission">
+      <SimpleCard title="Ajoutée de nouvelle commission">
         <FormComission onFormSubmitSuccess={handleRefreshTable} />
       </SimpleCard>
       <Box py="12px" />
-      <SimpleCard title="Historique comission">
+      <SimpleCard title="Historique commission">
         <TableComission refreshTable={refreshTable} />
       </SimpleCard>
     </Container>
